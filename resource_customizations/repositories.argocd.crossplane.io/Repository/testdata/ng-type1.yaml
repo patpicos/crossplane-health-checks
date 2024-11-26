@@ -1,0 +1,142 @@
+apiVersion: repositories.argocd.crossplane.io/v1alpha1
+kind: Repository
+# apiVersion: eks.aws.upbound.io/v1beta2
+# kind: NodeGroup
+metadata:
+  annotations:
+    crossplane.io/composition-resource-name: rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1
+    crossplane.io/external-create-pending: '2024-10-24T17:15:45Z'
+    crossplane.io/external-create-succeeded: '2024-10-24T17:15:45Z'
+    crossplane.io/external-name: rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1
+  creationTimestamp: '2024-10-24T17:15:44Z'
+  finalizers:
+    - finalizer.managedresource.crossplane.io
+  generateName: rmc-caf-use2pi-sjx7b-
+  generation: 6
+  labels:
+    crossplane.io/claim-name: rmc-caf-use2pi
+    crossplane.io/claim-namespace: rmc-clusters-infra
+    crossplane.io/composite: rmc-caf-use2pi-sjx7b
+  name: rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1
+  ownerReferences:
+    - apiVersion: gitops.k8s.dish.io/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: XNodeGroup
+      name: rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1
+      uid: 03ddc730-38d5-41c0-8c0d-7407b706eaaf
+  resourceVersion: '18369303'
+  uid: d424e9d4-2cf6-44f6-b43e-0eb38e544eb4
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    capacityType: ON_DEMAND
+    clusterName: rmc-caf-use2pi
+    launchTemplate:
+      id: lt-0d84086181fc5fe74
+      version: '2'
+    nodeRoleArn: >-
+      arn:aws:iam::992382726641:role/rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1-nodegroup-role
+    nodeRoleArnRef:
+      name: rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1-nodegroup-role
+    nodeRoleArnSelector:
+      matchControllerRef: true
+      matchLabels:
+        role: nodegroup
+    region: us-east-2
+    scalingConfig:
+      maxSize: 10
+      minSize: 2
+    subnetIds:
+      - subnet-09f7950b6ca92acc3
+    tags:
+      crossplane-kind: nodegroup.eks.aws.upbound.io
+      crossplane-name: rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1
+      crossplane-providerconfig: rmc-clusters-infra-aws-provider-config
+      dish:business:owner: cicd-team
+      dish:business:support-team: wcs-public-cloud
+      dish:created_by: crossplane-v3
+      dish:deployment:deployedby: argocd-v3
+      dish:deployment:environment: int
+  initProvider:
+    scalingConfig:
+      desiredSize: 2
+  managementPolicies:
+    - Create
+    - Delete
+    - Update
+    - Observe
+  providerConfigRef:
+    name: rmc-clusters-infra-aws-provider-config
+status:
+  atProvider:
+    amiType: CUSTOM
+    arn: >-
+      arn:aws:eks:us-east-2:992382726641:nodegroup/rmc-caf-use2pi/rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1/d4c95fc3-793d-2ada-daa2-501624190f61
+    capacityType: ON_DEMAND
+    clusterName: rmc-caf-use2pi
+    diskSize: 0
+    id: rmc-caf-use2pi:rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1
+    launchTemplate:
+      id: lt-0d84086181fc5fe74
+      name: rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1-launch-template
+      version: '2'
+    nodeRoleArn: >-
+      arn:aws:iam::992382726641:role/rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1-nodegroup-role
+    releaseVersion: ami-09c020f4a83b86e23
+    resources:
+      - autoscalingGroups:
+          - name: >-
+              eks-rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1-d4c95fc3-793d-2ada-daa2-501624190f61
+        remoteAccessSecurityGroupId: ''
+    scalingConfig:
+      desiredSize: 1
+      maxSize: 10
+      minSize: 1
+    status: ACTIVE
+    subnetIds:
+      - subnet-09f7950b6ca92acc3
+    tags:
+      crossplane-kind: nodegroup.eks.aws.upbound.io
+      crossplane-name: rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1
+      crossplane-providerconfig: rmc-clusters-infra-aws-provider-config
+      dish:business:owner: cicd-team
+      dish:business:support-team: wcs-public-cloud
+      dish:created_by: crossplane-v3
+      dish:deployment:deployedby: argocd-v3
+      dish:deployment:environment: int
+    tagsAll:
+      crossplane-kind: nodegroup.eks.aws.upbound.io
+      crossplane-name: rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1
+      crossplane-providerconfig: rmc-clusters-infra-aws-provider-config
+      dish:business:owner: cicd-team
+      dish:business:support-team: wcs-public-cloud
+      dish:created_by: crossplane-v3
+      dish:deployment:deployedby: argocd-v3
+      dish:deployment:environment: int
+    updateConfig:
+      maxUnavailable: 1
+      maxUnavailablePercentage: 0
+    version: '1.29'
+  conditions:
+    - lastTransitionTime: '2024-10-10T19:44:11Z'
+      reason: Available
+      status: 'True'
+      type: Ready
+    - lastTransitionTime: '2024-11-15T14:17:38Z'
+      message: >-
+        update failed: async update failed: refuse to update the external
+        resource because the following update requires replacing it: cannot
+        change the value of the argument "capacity_type" from "SPOT" to
+        "ON_DEMAND"
+      reason: ReconcileError
+      status: 'False'
+      type: Synced
+    - lastTransitionTime: '2024-11-15T14:17:38Z'
+      message: >-
+        async update failed: refuse to update the external resource because the
+        following update requires replacing it: cannot change the value of the
+        argument "capacity_type" from "SPOT" to "ON_DEMAND"
+      reason: AsyncUpdateFailure
+      status: 'False'
+      type: LastAsyncOperation

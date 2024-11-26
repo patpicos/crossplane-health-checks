@@ -1,0 +1,65 @@
+apiVersion: repositories.argocd.crossplane.io/v1alpha1
+kind: Repository
+metadata:
+  annotations:
+    crossplane.io/composition-resource-name: nk-ndc-rtwdt-argocd-repo-helm-us-east-1
+    crossplane.io/external-create-pending: '2024-11-13T17:45:00Z'
+    crossplane.io/external-create-succeeded: '2024-11-13T17:45:00Z'
+    crossplane.io/external-name: None/packages/helm/stable/
+  creationTimestamp: '2024-11-13T17:45:00Z'
+  finalizers:
+    - finalizer.managedresource.crossplane.io
+  generateName: nk-ndc-rtwdt-
+  generation: 3
+  labels:
+    crossplane.io/claim-name: nk-ndc
+    crossplane.io/claim-namespace: isv-onboarding-continuous-deployment
+    crossplane.io/composite: nk-ndc-rtwdt
+  name: nk-ndc-rtwdt-argocd-repo-helm-us-east-1
+  ownerReferences:
+    - apiVersion: onboarding.gitops.k8s.dish.io/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: XIsvContinuousDeployment
+      name: nk-ndc-rtwdt
+      uid: b4c64557-bf0d-494c-ad9c-5054eb3e3773
+  resourceVersion: '21208721'
+  uid: c3683a41-d6c2-442b-b364-d0a1f8ef5dae
+spec:
+  deletionPolicy: Orphan
+  forProvider:
+    enableLfs: false
+    enableOCI: false
+    inheritedCreds: false
+    insecure: true
+    name: nk-ndc-argocd-prj-dev-helm-repo
+    project: nk-ndc-us-east-1-argocd-prj-dev
+    repo: >-
+      https://portal.cicd.gitlab.int.aws.sourced.io/api/v4/projects/558/packages/helm/stable/
+    type: helm
+  managementPolicies:
+    - Create
+    - Delete
+    - LateInitialize
+    - Observe
+    - Update
+  providerConfigRef:
+    name: rmc-us-east-1-dev-argocd-provider-config
+status:
+  atProvider:
+    connectionState:
+      attemptedAt: '2024-11-13T21:45:06Z'
+      message: >-
+        Unable to connect to repository: rpc error: code = Unknown desc = error
+        testing repository connectivity: Get
+        "None/packages/helm/stable/index.yaml": unsupported protocol scheme ""
+      status: Failed
+  conditions:
+    - lastTransitionTime: '2024-11-13T17:45:01Z'
+      reason: Available
+      status: 'True'
+      type: Ready
+    - lastTransitionTime: '2024-11-13T17:45:00Z'
+      reason: ReconcileSuccess
+      status: 'True'
+      type: Synced

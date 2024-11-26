@@ -1,0 +1,53 @@
+tests:
+- healthStatus:
+    status: Degraded
+    message: >-
+        Unable to connect to repository: rpc error: code = Unknown desc = error
+        testing repository connectivity: Get
+        "None/packages/helm/stable/index.yaml": unsupported protocol scheme ""
+  inputPath: testdata/repository.yaml
+
+- healthStatus:
+    status: Degraded
+    message: >-
+        cannot patch the managed resource via server-side apply: failed to
+        create typed patch object (/; ec2.aws.upbound.io/v1beta1,
+        Kind=LaunchTemplate): .spec.forProvider.vpcSecurityGroupIds: element 0:
+        associative list without keys has an element that's an explicit null
+  inputPath: testdata/launchtemplate.yaml
+
+- healthStatus:
+    status: Degraded
+    message: >-
+        async update failed: failed to update the resource: [{0 updating EKS
+        Node Group (rmc-caf-use2pi:rmc-caf-use2pi-sjx7b-ng-mgmt-1-az1) config:
+        operation error EKS: UpdateNodegroupConfig, https response error
+        StatusCode: 400, RequestID: e775b232-e678-4e6d-8de5-213d7997a497,
+        InvalidParameterException: Minimum capacity 2 can't be greater than
+        desired size 1  []}]
+  inputPath: testdata/ng-capacity.yaml
+
+- healthStatus:
+    status: Degraded
+    message: >-
+        async update failed: refuse to update the external resource because the
+        following update requires replacing it: cannot change the value of the
+        argument "capacity_type" from "SPOT" to "ON_DEMAND"
+  inputPath: testdata/ng-type1.yaml
+- healthStatus:
+    status: Degraded
+    message: >-
+        async update failed: refuse to update the external resource because the
+        following update requires replacing it: cannot change the value of the
+        argument "capacity_type" from "SPOT" to "ON_DEMAND"
+  inputPath: testdata/ng-type2.yaml
+- healthStatus:
+    status: Healthy
+    message: "Resource is up-to-date."
+  inputPath: testdata/addon-healthy.yaml
+- healthStatus:
+    status: Progressing
+    message: >-
+        cannot resolve references: mg.Spec.ForProvider.FileSystemID: referenced
+        field was empty (referenced resource may not yet be ready)
+  inputPath: testdata/backup-policy.yaml

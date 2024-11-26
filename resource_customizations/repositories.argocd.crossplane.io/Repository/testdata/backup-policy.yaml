@@ -1,0 +1,51 @@
+apiVersion: repositories.argocd.crossplane.io/v1alpha1
+kind: Repository
+# apiVersion: efs.aws.upbound.io/v1beta2
+# kind: BackupPolicy
+metadata:
+  annotations:
+    crossplane.io/composition-resource-name: efsdra01-pq9mx-backup-policy
+  creationTimestamp: '2024-11-26T17:39:54Z'
+  generateName: efsdra01-pq9mx-
+  generation: 1
+  labels:
+    crossplane.io/claim-name: efsdra01
+    crossplane.io/claim-namespace: nk-ndc-dev
+    crossplane.io/composite: efsdra01-pq9mx
+  name: efsdra01-pq9mx-backup-policy
+  ownerReferences:
+    - apiVersion: gitops.k8s.dish.io/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: XEFS
+      name: efsdra01-pq9mx
+      uid: a11ccc33-1ac1-4ec8-9b32-dbc11337adca
+  resourceVersion: '23898931'
+  uid: 9fc9bc72-7612-46b9-865e-defc85fbbd70
+spec:
+  deletionPolicy: Orphan
+  forProvider:
+    backupPolicy:
+      status: ENABLED
+    fileSystemIdSelector:
+      matchControllerRef: true
+    region: us-east-1
+  initProvider: {}
+  managementPolicies:
+    - Create
+    - Delete
+    - LateInitialize
+    - Update
+    - Observe
+  providerConfigRef:
+    name: nk-ndc-dev-aws-provider-config
+status:
+  atProvider: {}
+  conditions:
+    - lastTransitionTime: '2024-11-26T17:39:54Z'
+      message: >-
+        cannot resolve references: mg.Spec.ForProvider.FileSystemID: referenced
+        field was empty (referenced resource may not yet be ready)
+      reason: ReconcileError
+      status: 'False'
+      type: Synced

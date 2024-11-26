@@ -1,0 +1,91 @@
+apiVersion: repositories.argocd.crossplane.io/v1alpha1
+kind: Repository
+# apiVersion: eks.aws.upbound.io/v1beta1
+# kind: Addon
+metadata:
+  annotations:
+    crossplane.io/composition-resource-name: rmc-caf-use2pi-8t8jt-coredns-addon
+    crossplane.io/external-create-pending: '2024-10-23T03:11:44Z'
+    crossplane.io/external-create-succeeded: '2024-10-23T03:11:44Z'
+    crossplane.io/external-name: 'rmc-caf-use2pi:coredns'
+  creationTimestamp: '2024-10-23T03:11:14Z'
+  finalizers:
+    - finalizer.managedresource.crossplane.io
+  generateName: rmc-caf-use2pi-8t8jt-
+  generation: 4
+  labels:
+    crossplane.io/claim-name: rmc-caf-use2pi
+    crossplane.io/claim-namespace: rmc-clusters-infra
+    crossplane.io/composite: rmc-caf-use2pi-8t8jt
+  name: rmc-caf-use2pi-8t8jt-coredns-addon
+  ownerReferences:
+    - apiVersion: gitops.k8s.dish.io/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: XCluster
+      name: rmc-caf-use2pi-8t8jt
+      uid: 288462c1-608b-49bb-b172-ae3f1cfbbe2d
+  resourceVersion: '1098389'
+  uid: ee29d34a-054a-42d7-b948-3ec180cc965e
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    addonName: coredns
+    addonVersion: v1.11.1-eksbuild.4
+    clusterName: rmc-caf-use2pi
+    clusterNameRef:
+      name: rmc-caf-use2pi-8t8jt-cluster
+    clusterNameSelector:
+      matchControllerRef: true
+    region: us-east-2
+    resolveConflictsOnCreate: OVERWRITE
+    resolveConflictsOnUpdate: OVERWRITE
+    tags:
+      crossplane-kind: addon.eks.aws.upbound.io
+      crossplane-name: rmc-caf-use2pi-8t8jt-coredns-addon
+      crossplane-providerconfig: rmc-clusters-infra-aws-provider-config
+  initProvider: {}
+  managementPolicies:
+    - Create
+    - Delete
+    - LateInitialize
+    - Update
+    - Observe
+  providerConfigRef:
+    name: rmc-clusters-infra-aws-provider-config
+status:
+  atProvider:
+    addonName: coredns
+    addonVersion: v1.11.1-eksbuild.4
+    arn: >-
+      arn:aws:eks:us-east-2:xxxxxxx:addon/rmc-caf-use2pi/coredns/12c95bad-ef4d-525f-00f0-b75be78ee1b9
+    clusterName: rmc-caf-use2pi
+    configurationValues: ''
+    createdAt: '2024-10-23T03:11:44Z'
+    id: 'rmc-caf-use2pi:coredns'
+    modifiedAt: '2024-10-23T03:26:36Z'
+    resolveConflictsOnCreate: OVERWRITE
+    resolveConflictsOnUpdate: OVERWRITE
+    serviceAccountRoleArn: ''
+    tags:
+      crossplane-kind: addon.eks.aws.upbound.io
+      crossplane-name: rmc-caf-use2pi-8t8jt-coredns-addon
+      crossplane-providerconfig: rmc-clusters-infra-aws-provider-config
+    tagsAll:
+      crossplane-kind: addon.eks.aws.upbound.io
+      crossplane-name: rmc-caf-use2pi-8t8jt-coredns-addon
+      crossplane-providerconfig: rmc-clusters-infra-aws-provider-config
+
+  conditions:
+    - lastTransitionTime: '2024-10-23T03:26:43Z'
+      reason: ReconcileSuccess
+      status: 'True'
+      type: Synced
+    - lastTransitionTime: '2024-10-23T03:26:44Z'
+      reason: Available
+      status: 'True'
+      type: Ready
+    - lastTransitionTime: '2024-10-23T03:26:44Z'
+      reason: Success
+      status: 'True'
+      type: LastAsyncOperation

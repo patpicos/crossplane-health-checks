@@ -1,0 +1,173 @@
+apiVersion: repositories.argocd.crossplane.io/v1alpha1
+kind: Repository
+# apiVersion: ec2.aws.upbound.io/v1beta2
+# kind: LaunchTemplate
+metadata:
+  annotations:
+    crossplane.io/composition-resource-name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-launch-template
+    crossplane.io/external-create-pending: '2024-10-10T16:12:07Z'
+    crossplane.io/external-create-succeeded: '2024-10-10T16:12:07Z'
+    crossplane.io/external-name: lt-0204bf17502a5a719
+  creationTimestamp: '2024-10-10T16:12:07Z'
+  finalizers:
+    - finalizer.managedresource.crossplane.io
+  generateName: rmc-caf-use1pd-cng4s-
+  generation: 6
+  labels:
+    crossplane.io/claim-name: rmc-caf-use1pd
+    crossplane.io/claim-namespace: rmc-clusters-infra
+    crossplane.io/composite: rmc-caf-use1pd-cng4s
+  name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-launch-template
+  ownerReferences:
+    - apiVersion: gitops.k8s.dish.io/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: XNodeGroup
+      name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3
+      uid: b4ce308e-295b-4c73-bb95-226db6da6802
+  resourceVersion: '24543810'
+  uid: cc13493c-43f8-4d1e-aaad-5b999edb50b8
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    blockDeviceMappings:
+      - deviceName: /dev/xvda
+        ebs:
+          deleteOnTermination: 'true'
+          encrypted: 'true'
+          volumeSize: 50
+          volumeType: gp3
+    defaultVersion: 1
+    imageId: ami-049c1b5d1f776fe50
+    instanceType: m5.2xlarge
+    metadataOptions:
+      httpEndpoint: enabled
+      httpPutResponseHopLimit: 1
+      httpTokens: optional
+    monitoring:
+      enabled: true
+    name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-launch-template
+    region: us-east-1
+    tagSpecifications:
+      - resourceType: instance
+        tags:
+          Name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-nodegroup
+      - resourceType: network-interface
+        tags:
+          Name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-interface
+      - resourceType: volume
+        tags:
+          Name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-volume
+    tags:
+      crossplane-kind: launchtemplate.ec2.aws.upbound.io
+      crossplane-name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-launch-template
+      crossplane-providerconfig: rmc-clusters-infra-aws-provider-config
+      'dish:business:owner': cicd-team
+      'dish:business:support-team': amdocs-support
+      'dish:created_by': crossplane-v3
+      'dish:deployment:deployedby': argocd-v3
+      'dish:deployment:environment': dev
+    userData: >-
+      TUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvbWl4ZWQ7IGJvdW5kYXJ5PSI9PU1ZQk9VTkRBUlk9PSIKLS09PU1ZQk9VTkRBUlk9PQpDb250ZW50LVR5cGU6IHRleHQveC1zaGVsbHNjcmlwdDsgY2hhcnNldD0idXMtYXNjaWkiCgojIS9iaW4vYmFzaAoKaWYgWyAteiAiJElOU1RBTkNFX0lEIiBdOyB0aGVuCiAgSU5TVEFOQ0VfSUQ9JChjdXJsIGh0dHA6Ly8xNjkuMjU0LjE2OS4yNTQvbGF0ZXN0L21ldGEtZGF0YS9pbnN0YW5jZS1pZCkKZmkKCktBUkdTPSItLW5vZGUtbGFiZWxzPWluc3RhbmNlPSRJTlNUQU5DRV9JRCAiICAgICAgICAgICAgCi9ldGMvZWtzL2Jvb3RzdHJhcC5zaCBybWMtY2FmLXVzZTFwZCAtLWt1YmVsZXQtZXh0cmEtYXJncyAiJEtBUkdTIgoKLS09PU1ZQk9VTkRBUlk9PS0t
+    vpcSecurityGroupIds:
+      - ''
+      - sg-0e8fddbfe9893c824
+      - sg-0bea0c2c1724436bf
+  initProvider: {}
+  managementPolicies:
+    - Create
+    - Delete
+    - LateInitialize
+    - Update
+    - Observe
+  providerConfigRef:
+    name: rmc-clusters-infra-aws-provider-config
+status:
+  atProvider:
+    arn: 'arn:aws:ec2:us-east-1:381492286288:launch-template/lt-0204bf17502a5a719'
+    blockDeviceMappings:
+      - deviceName: /dev/xvda
+        ebs:
+          deleteOnTermination: 'true'
+          encrypted: 'true'
+          iops: 0
+          kmsKeyId: ''
+          snapshotId: ''
+          throughput: 0
+          volumeSize: 20
+          volumeType: gp3
+        noDevice: ''
+        virtualName: ''
+    defaultVersion: 1
+    description: ''
+    disableApiStop: false
+    disableApiTermination: false
+    ebsOptimized: ''
+    id: lt-0204bf17502a5a719
+    imageId: ami-049c1b5d1f776fe50
+    instanceInitiatedShutdownBehavior: ''
+    instanceType: m5.2xlarge
+    kernelId: ''
+    keyName: ''
+    latestVersion: 1
+    metadataOptions:
+      httpEndpoint: enabled
+      httpProtocolIpv6: ''
+      httpPutResponseHopLimit: 1
+      httpTokens: optional
+      instanceMetadataTags: ''
+    monitoring:
+      enabled: true
+    name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-launch-template
+    ramDiskId: ''
+    tagSpecifications:
+      - resourceType: instance
+        tags:
+          Name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-nodegroup
+      - resourceType: network-interface
+        tags:
+          Name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-interface
+      - resourceType: volume
+        tags:
+          Name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-volume
+    tags:
+      crossplane-kind: launchtemplate.ec2.aws.upbound.io
+      crossplane-name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-launch-template
+      crossplane-providerconfig: rmc-clusters-infra-aws-provider-config
+      'dish:business:owner': cicd-team
+      'dish:business:support-team': amdocs-support
+      'dish:created_by': crossplane-v3
+      'dish:deployment:deployedby': argocd-v3
+      'dish:deployment:environment': dev
+    tagsAll:
+      crossplane-kind: launchtemplate.ec2.aws.upbound.io
+      crossplane-name: rmc-caf-use1pd-cng4s-ng-mgmt-1-az3-launch-template
+      crossplane-providerconfig: rmc-clusters-infra-aws-provider-config
+      'dish:business:owner': cicd-team
+      'dish:business:support-team': amdocs-support
+      'dish:created_by': crossplane-v3
+      'dish:deployment:deployedby': argocd-v3
+      'dish:deployment:environment': dev
+    userData: >-
+      TUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvbWl4ZWQ7IGJvdW5kYXJ5PSI9PU1ZQk9VTkRBUlk9PSIKLS09PU1ZQk9VTkRBUlk9PQpDb250ZW50LVR5cGU6IHRleHQveC1zaGVsbHNjcmlwdDsgY2hhcnNldD0idXMtYXNjaWkiCgojIS9iaW4vYmFzaApJTlNUQU5DRV9JRD0kKGN1cmwgaHR0cDovLzE2OS4yNTQuMTY5LjI1NC9sYXRlc3QvbWV0YS1kYXRhL2luc3RhbmNlLWlkKQpLQVJHUz0iLS1ub2RlLWxhYmVscz1pbnN0YW5jZT0kSU5TVEFOQ0VfSUQiCgovZXRjL2Vrcy9ib290c3RyYXAuc2ggcm1jLWNhZi11c2UxcGQgLS1rdWJlbGV0LWV4dHJhLWFyZ3MgIiRLQVJHUyIKCi0tPT1NWUJPVU5EQVJZPT0tLQ==
+    vpcSecurityGroupIds:
+      - sg-0bea0c2c1724436bf
+      - sg-0e8fddbfe9893c824
+  conditions:
+    - lastTransitionTime: '2024-10-10T16:12:09Z'
+      reason: Available
+      status: 'True'
+      type: Ready
+    - lastTransitionTime: '2024-11-18T19:52:41Z'
+      message: >-
+        cannot patch the managed resource via server-side apply: failed to
+        create typed patch object (/; ec2.aws.upbound.io/v1beta1,
+        Kind=LaunchTemplate): .spec.forProvider.vpcSecurityGroupIds: element 0:
+        associative list without keys has an element that's an explicit null
+      reason: ReconcileError
+      status: 'False'
+      type: Synced
+    - lastTransitionTime: '2024-10-10T16:12:07Z'
+      reason: Success
+      status: 'True'
+      type: LastAsyncOperation
