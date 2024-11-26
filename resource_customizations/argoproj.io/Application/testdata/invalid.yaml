@@ -1,0 +1,496 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/tracking-id: nokia-amf-64tpb-app:argoproj.io/Application:argocd/nokia-amf-64tpb-app-004-pre-validation
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{"argocd.argoproj.io/sync-wave":"4","argocd.argoproj.io/tracking-id":"nokia-amf-64tpb-app:argoproj.io/Application:argocd/nokia-amf-64tpb-app-004-pre-validation"},"name":"nokia-amf-64tpb-app-004-pre-validation","namespace":"argocd"},"spec":{"destination":{"name":"nk-rdc-amf-cicd-demo","namespace":"d1e1az1amf01"},"project":"nk-rdc-us-east-1-argocd-prj-dev","sources":[{"chart":"k8s-validations","helm":{"releaseName":"pre-validation","valueFiles":["$values/us-east-1/nk-rdc-amf-cicd-demo/workloads/amf/values/pre-validation.yaml"]},"repoURL":"https://portal.cicd.gitlab.int.aws.sourced.io/api/v4/projects/462/packages/helm/stable/","targetRevision":"1.0.0"},{"ref":"values","repoURL":"https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/nk-rdc-dev/nk-rdc-dev","targetRevision":"release-3"}],"syncPolicy":{"automated":{"prune":false,"selfHeal":true},"retry":{"backoff":{"duration":"5s","factor":2,"maxDuration":"3m0s"},"limit":6},"syncOptions":["CreateNamespace=true"]}}}
+  creationTimestamp: "2024-11-25T22:18:18Z"
+  generation: 480
+  name: nokia-amf-64tpb-app-004-pre-validation
+  namespace: argocd
+  resourceVersion: "23996121"
+  uid: 6ba29155-9ced-43da-b1d0-872d0905c27f
+spec:
+  destination:
+    name: nk-rdc-amf-cicd-demo
+    namespace: d1e1az1amf01
+  project: nk-rdc-us-east-1-argocd-prj-dev
+  sources:
+  - chart: k8s-validations
+    helm:
+      releaseName: pre-validation
+      valueFiles:
+      - $values/us-east-1/nk-rdc-amf-cicd-demo/workloads/amf/values/pre-validation.yaml
+    repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/api/v4/projects/462/packages/helm/stable/
+    targetRevision: 1.0.0
+  - ref: values
+    repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/nk-rdc-dev/nk-rdc-dev
+    targetRevision: release-3
+  syncPolicy:
+    automated:
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+      limit: 6
+    syncOptions:
+    - CreateNamespace=true
+status:
+  conditions:
+  - lastTransitionTime: "2024-11-26T20:22:17Z"
+    message: 'unable to find destination server: there are 2 clusters with the same
+      name: [https://A9E37800B5C5D3EF7D57E147025B7857.gr7.us-east-1.eks.amazonaws.com
+      https://1CA198F9A1D7245F01F311854215E0A1.gr7.us-east-1.eks.amazonaws.com]'
+    type: InvalidSpecError
+  controllerNamespace: argocd
+  health:
+    status: Progressing
+  history:
+  - deployStartedAt: "2024-11-25T22:18:19Z"
+    deployedAt: "2024-11-25T22:18:25Z"
+    id: 0
+    initiatedBy:
+      automated: true
+    revisions:
+    - 1.0.0
+    - 8501315fdf1ac19ddca60bd6fa0c9fbc911cd0d8
+    source:
+      repoURL: ""
+    sources:
+    - chart: k8s-validations
+      helm:
+        releaseName: pre-validation
+        valueFiles:
+        - $values/us-east-1/nk-rdc-amf-cicd-demo/workloads/amf/values/pre-validation.yaml
+      repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.0.0
+    - ref: values
+      repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/nk-rdc-dev/nk-rdc-dev
+      targetRevision: release-3
+  operationState:
+    finishedAt: "2024-11-26T19:58:16Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        backoff:
+          duration: 5s
+          factor: 2
+          maxDuration: 3m0s
+        limit: 6
+      sync:
+        resources:
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-higher-priority-iybu
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-linux-nodes-ubjx
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-ebs-sc-nqxm
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-cmm-lower-priority-cnsp
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-linux-nodes-boba
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-cmm-lower-priority-bhve
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-higher-priority-gvnx
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-ebs-sc-ycip
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-cmm-lower-priority-ezxh
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-linux-nodes-dotz
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-ebs-sc-cmum
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-linux-nodes-thsr
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-cmm-lower-priority-ncvw
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-ebs-sc-tufi
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-higher-priority-rgiy
+        - group: batch
+          kind: Job
+          name: pre-validation-k8s-validations-validate-higher-priority-teij
+        revisions:
+        - 1.0.0
+        - 8501315fdf1ac19ddca60bd6fa0c9fbc911cd0d8
+        syncOptions:
+        - CreateNamespace=true
+    phase: Succeeded
+    startedAt: "2024-11-26T19:58:16Z"
+    syncResult:
+      resources:
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-cmm-lower-priority-bhve
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-ebs-sc-cmum
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-cmm-lower-priority-ezxh
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-higher-priority-gvnx
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-cmm-lower-priority-ncvw
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-higher-priority-rgiy
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-ebs-sc-ycip
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-linux-nodes-dotz
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-higher-priority-teij
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-linux-nodes-thsr
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-ebs-sc-tufi
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Succeeded
+        kind: Job
+        message: ignored (requires pruning)
+        name: pre-validation-k8s-validations-validate-linux-nodes-boba
+        namespace: d1e1az1amf01
+        status: PruneSkipped
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Running
+        kind: Job
+        message: job.batch/pre-validation-k8s-validations-validate-cmm-lower-priority-cnsp
+          created
+        name: pre-validation-k8s-validations-validate-cmm-lower-priority-cnsp
+        namespace: d1e1az1amf01
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Running
+        kind: Job
+        message: job.batch/pre-validation-k8s-validations-validate-higher-priority-iybu
+          created
+        name: pre-validation-k8s-validations-validate-higher-priority-iybu
+        namespace: d1e1az1amf01
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Running
+        kind: Job
+        message: job.batch/pre-validation-k8s-validations-validate-ebs-sc-nqxm created
+        name: pre-validation-k8s-validations-validate-ebs-sc-nqxm
+        namespace: d1e1az1amf01
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Running
+        kind: Job
+        message: job.batch/pre-validation-k8s-validations-validate-linux-nodes-ubjx
+          created
+        name: pre-validation-k8s-validations-validate-linux-nodes-ubjx
+        namespace: d1e1az1amf01
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: ""
+      revisions:
+      - 1.0.0
+      - 8501315fdf1ac19ddca60bd6fa0c9fbc911cd0d8
+      source:
+        repoURL: ""
+      sources:
+      - chart: k8s-validations
+        helm:
+          releaseName: pre-validation
+          valueFiles:
+          - $values/us-east-1/nk-rdc-amf-cicd-demo/workloads/amf/values/pre-validation.yaml
+        repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/api/v4/projects/462/packages/helm/stable/
+        targetRevision: 1.0.0
+      - ref: values
+        repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/nk-rdc-dev/nk-rdc-dev
+        targetRevision: release-3
+  reconciledAt: "2024-11-26T20:22:14Z"
+  resources:
+  - kind: ServiceAccount
+    name: pre-validation-k8s-validations-sa
+    namespace: d1e1az1amf01
+    status: Synced
+    syncWave: -20
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-cmm-lower-priority-bhve
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Progressing
+    kind: Job
+    name: pre-validation-k8s-validations-validate-cmm-lower-priority-cnsp
+    namespace: d1e1az1amf01
+    status: Synced
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-cmm-lower-priority-ezxh
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-cmm-lower-priority-ncvw
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-ebs-sc-cmum
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Progressing
+    kind: Job
+    name: pre-validation-k8s-validations-validate-ebs-sc-nqxm
+    namespace: d1e1az1amf01
+    status: Synced
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-ebs-sc-tufi
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-ebs-sc-ycip
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-higher-priority-gvnx
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Progressing
+    kind: Job
+    name: pre-validation-k8s-validations-validate-higher-priority-iybu
+    namespace: d1e1az1amf01
+    status: Synced
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-higher-priority-rgiy
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-higher-priority-teij
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-linux-nodes-boba
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-linux-nodes-dotz
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: pre-validation-k8s-validations-validate-linux-nodes-thsr
+    namespace: d1e1az1amf01
+    requiresPruning: true
+    status: OutOfSync
+    version: v1
+  - group: batch
+    health:
+      status: Progressing
+    kind: Job
+    name: pre-validation-k8s-validations-validate-linux-nodes-ubjx
+    namespace: d1e1az1amf01
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: pre-validation-k8s-validations-role
+    status: Synced
+    syncWave: -20
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+    name: pre-validation-k8s-validations-jobs
+    status: Synced
+    syncWave: -15
+    version: v1
+  sourceTypes:
+  - Helm
+  - ""
+  summary:
+    images:
+    - 155880749572.dkr.ecr.us-east-1.amazonaws.com/caf/k8s-validation:v1.0.0
+  sync:
+    comparedTo:
+      destination:
+        name: nk-rdc-amf-cicd-demo
+        namespace: d1e1az1amf01
+      source:
+        repoURL: ""
+      sources:
+      - chart: k8s-validations
+        helm:
+          releaseName: pre-validation
+          valueFiles:
+          - $values/us-east-1/nk-rdc-amf-cicd-demo/workloads/amf/values/pre-validation.yaml
+        repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/api/v4/projects/462/packages/helm/stable/
+        targetRevision: 1.0.0
+      - ref: values
+        repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/nk-rdc-dev/nk-rdc-dev
+        targetRevision: release-3
+    revisions:
+    - 1.0.0
+    - 8501315fdf1ac19ddca60bd6fa0c9fbc911cd0d8
+    status: OutOfSync

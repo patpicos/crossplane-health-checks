@@ -1,0 +1,64 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"finalizers":["resources-finalizer.argocd.argoproj.io"],"labels":{"argocd.gitops.dish.io/application-type":"cnf-workload","gitops.dish.io/environment":"dev","gitops.dish.io/isv-name":"fp-rdc","gitops.dish.io/service-tier":"nonp"},"name":"e1az2-dev-std01-us-east-1-amf","namespace":"argocd"},"spec":{"destination":{"name":"in-cluster","namespace":"fp-rdc-dev"},"project":"fp-rdc-us-east-1-argocd-prj-dev","source":{"path":"us-east-1/e1az2-dev-std01/workloads/amf","repoURL":"https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/fp-rdc-dev/fp-rdc-dev.git","targetRevision":"main"},"syncPolicy":{"managedNamespaceMetadata":{"labels":{"gitops.dish.io/cluster-name":"e1az2-dev-std01","gitops.dish.io/cnf-name":"amf","gitops.dish.io/environment":"dev","gitops.dish.io/isv-name":"fp-rdc","gitops.dish.io/region":"us-east-1","gitops.dish.io/service-tier":"nonp"}},"syncOptions":["Validate=false","CreateNamespace=true","PrunePropagationPolicy=foreground","PruneLast=true","RespectIgnoreDifferences=true","ApplyOutOfSyncOnly=true"]}}}'
+  creationTimestamp: "2024-11-26T16:38:23Z"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  generation: 153
+  labels:
+    argocd.gitops.dish.io/application-type: cnf-workload
+    gitops.dish.io/environment: dev
+    gitops.dish.io/isv-name: fp-rdc
+    gitops.dish.io/service-tier: nonp
+  name: e1az2-dev-std01-us-east-1-amf
+  namespace: argocd
+  resourceVersion: "23974239"
+  uid: c44b228a-4a9b-45c7-972d-fe66a6330b8c
+spec:
+  destination:
+    name: in-cluster
+    namespace: fp-rdc-dev
+  project: fp-rdc-us-east-1-argocd-prj-dev
+  source:
+    path: us-east-1/e1az2-dev-std01/workloads/amf
+    repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/fp-rdc-dev/fp-rdc-dev.git
+    targetRevision: main
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        gitops.dish.io/cluster-name: e1az2-dev-std01
+        gitops.dish.io/cnf-name: amf
+        gitops.dish.io/environment: dev
+        gitops.dish.io/isv-name: fp-rdc
+        gitops.dish.io/region: us-east-1
+        gitops.dish.io/service-tier: nonp
+    syncOptions:
+    - Validate=false
+    - CreateNamespace=true
+    - PrunePropagationPolicy=foreground
+    - PruneLast=true
+    - RespectIgnoreDifferences=true
+    - ApplyOutOfSyncOnly=true
+status:
+  conditions:
+  - lastTransitionTime: "2024-11-26T19:52:43Z"
+    message: 'Failed to load target state: failed to generate manifest for source
+      1 of 1: rpc error: code = Unknown desc = Manifest generation error (cached):
+      us-east-1/e1az2-dev-std01/workloads/amf: app path does not exist'
+    type: ComparisonError
+  controllerNamespace: argocd
+  health:
+    status: Healthy
+  reconciledAt: "2024-11-26T19:52:43Z"
+  sync:
+    comparedTo:
+      destination:
+        name: in-cluster
+        namespace: fp-rdc-dev
+      source:
+        path: us-east-1/e1az2-dev-std01/workloads/amf
+        repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/fp-rdc-dev/fp-rdc-dev.git
+        targetRevision: main
+    status: Unknown

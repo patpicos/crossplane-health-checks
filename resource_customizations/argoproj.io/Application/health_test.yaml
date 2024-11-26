@@ -1,0 +1,23 @@
+tests:
+- healthStatus:
+    status: Degraded
+    message: 'Failed to load target state: failed to generate manifest for source
+      1 of 1: rpc error: code = Unknown desc = Manifest generation error (cached):
+      us-east-1/e1az2-dev-std01/workloads/amf: app path does not exist'
+  inputPath: testdata/unknown.yaml
+- healthStatus:
+    status: Degraded
+    message: 'Failed to load live state: Get "https://A9E37800B5C5D3EF7D57E147025B7857.gr7.us-east-1.eks.amazonaws.com/apis/cmm.nokia.com/vcmm24-7?timeout=32s":
+      dial tcp: lookup A9E37800B5C5D3EF7D57E147025B7857.gr7.us-east-1.eks.amazonaws.com
+      on 10.100.0.10:53: no such host'
+  inputPath: testdata/unknown2.yaml
+- healthStatus:
+    status: Degraded
+    message: 'unable to find destination server: there are 2 clusters with the same
+      name: [https://A9E37800B5C5D3EF7D57E147025B7857.gr7.us-east-1.eks.amazonaws.com
+      https://1CA198F9A1D7245F01F311854215E0A1.gr7.us-east-1.eks.amazonaws.com]'
+  inputPath: testdata/invalid.yaml
+- healthStatus:
+    status: Healthy
+    message: ""
+  inputPath: testdata/healthy.yaml

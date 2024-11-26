@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"finalizers":["resources-finalizer.argocd.argoproj.io"],"labels":{"argocd.gitops.dish.io/application-type":"cnf-workload","gitops.dish.io/environment":"dev","gitops.dish.io/isv-name":"or-ndc","gitops.dish.io/service-tier":"nonp"},"name":"or-ndc-bsf-cicd-dev-us-east-1-bsf","namespace":"argocd"},"spec":{"destination":{"name":"in-cluster","namespace":"or-ndc-dev"},"project":"or-ndc-us-east-1-argocd-prj-dev","source":{"path":"us-east-1/or-ndc-bsf-cicd-dev/workloads/bsf","repoURL":"https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/or-ndc-dev/or-ndc-dev.git","targetRevision":"main"},"syncPolicy":{"managedNamespaceMetadata":{"labels":{"gitops.dish.io/cluster-name":"or-ndc-bsf-cicd-dev","gitops.dish.io/cnf-name":"bsf","gitops.dish.io/environment":"dev","gitops.dish.io/isv-name":"or-ndc","gitops.dish.io/region":"us-east-1","gitops.dish.io/service-tier":"nonp"}},"syncOptions":["Validate=false","CreateNamespace=true","PrunePropagationPolicy=foreground","PruneLast=true","RespectIgnoreDifferences=true","ApplyOutOfSyncOnly=true"]}}}'
+  creationTimestamp: "2024-11-21T20:32:43Z"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  generation: 2173
+  labels:
+    argocd.gitops.dish.io/application-type: cnf-workload
+    gitops.dish.io/environment: dev
+    gitops.dish.io/isv-name: or-ndc
+    gitops.dish.io/service-tier: nonp
+  name: or-ndc-bsf-cicd-dev-us-east-1-bsf
+  namespace: argocd
+  resourceVersion: "23987763"
+  uid: b88221f4-bf4c-40b8-aaa5-8c26de1a12cb
+spec:
+  destination:
+    name: in-cluster
+    namespace: or-ndc-dev
+  project: or-ndc-us-east-1-argocd-prj-dev
+  source:
+    path: us-east-1/or-ndc-bsf-cicd-dev/workloads/bsf
+    repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/or-ndc-dev/or-ndc-dev.git
+    targetRevision: main
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        gitops.dish.io/cluster-name: or-ndc-bsf-cicd-dev
+        gitops.dish.io/cnf-name: bsf
+        gitops.dish.io/environment: dev
+        gitops.dish.io/isv-name: or-ndc
+        gitops.dish.io/region: us-east-1
+        gitops.dish.io/service-tier: nonp
+    syncOptions:
+    - Validate=false
+    - CreateNamespace=true
+    - PrunePropagationPolicy=foreground
+    - PruneLast=true
+    - RespectIgnoreDifferences=true
+    - ApplyOutOfSyncOnly=true
+status:
+  controllerNamespace: argocd
+  health:
+    status: Healthy
+  reconciledAt: "2024-11-26T20:11:48Z"
+  sourceType: Directory
+  sync:
+    comparedTo:
+      destination:
+        name: in-cluster
+        namespace: or-ndc-dev
+      source:
+        path: us-east-1/or-ndc-bsf-cicd-dev/workloads/bsf
+        repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/or-ndc-dev/or-ndc-dev.git
+        targetRevision: main
+    revision: 4936dc

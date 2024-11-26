@@ -1,0 +1,124 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/tracking-id: nokia-amf-64tpb-app:argoproj.io/Application:argocd/nokia-amf-64tpb-app-005-amf-deploy
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{"argocd.argoproj.io/sync-wave":"5","argocd.argoproj.io/tracking-id":"nokia-amf-64tpb-app:argoproj.io/Application:argocd/nokia-amf-64tpb-app-005-amf-deploy"},"name":"nokia-amf-64tpb-app-005-amf-deploy","namespace":"argocd"},"spec":{"destination":{"name":"nk-rdc-amf-cicd-demo","namespace":"d1e1az1amf01"},"project":"nk-rdc-us-east-1-argocd-prj-dev","sources":[{"chart":"CMM-operator-k8s","helm":{"releaseName":"amf","valueFiles":["$values/us-east-1/nk-rdc-amf-cicd-demo/workloads/amf/values/values.yaml"]},"repoURL":"https://portal.cicd.gitlab.int.aws.sourced.io/api/v4/projects/525/packages/helm/stable/","targetRevision":"24.7.0-P3"},{"ref":"values","repoURL":"https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/nk-rdc-dev/nk-rdc-dev","targetRevision":"release-3"}],"syncPolicy":{"automated":{"prune":false,"selfHeal":true},"retry":{"backoff":{"duration":"5s","factor":2,"maxDuration":"3m0s"},"limit":6},"syncOptions":["CreateNamespace=true"]}}}
+  creationTimestamp: "2024-11-25T22:18:30Z"
+  generation: 463
+  name: nokia-amf-64tpb-app-005-amf-deploy
+  namespace: argocd
+  resourceVersion: "23984998"
+  uid: af575bd8-c7e5-4176-a0b2-a9f442fdf4d3
+spec:
+  destination:
+    name: nk-rdc-amf-cicd-demo
+    namespace: d1e1az1amf01
+  project: nk-rdc-us-east-1-argocd-prj-dev
+  sources:
+  - chart: CMM-operator-k8s
+    helm:
+      releaseName: amf
+      valueFiles:
+      - $values/us-east-1/nk-rdc-amf-cicd-demo/workloads/amf/values/values.yaml
+    repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/api/v4/projects/525/packages/helm/stable/
+    targetRevision: 24.7.0-P3
+  - ref: values
+    repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/nk-rdc-dev/nk-rdc-dev
+    targetRevision: release-3
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+      limit: 6
+    syncOptions:
+    - CreateNamespace=true
+status:
+  conditions:
+  - lastTransitionTime: "2024-11-26T20:07:14Z"
+    message: 'Failed to load live state: Get "https://A9E37800B5C5D3EF7D57E147025B7857.gr7.us-east-1.eks.amazonaws.com/apis/cmm.nokia.com/vcmm24-7?timeout=32s":
+      dial tcp: lookup A9E37800B5C5D3EF7D57E147025B7857.gr7.us-east-1.eks.amazonaws.com
+      on 10.100.0.10:53: no such host'
+    type: ComparisonError
+  controllerNamespace: argocd
+  health:
+    status: Missing
+  reconciledAt: "2024-11-26T20:07:14Z"
+  resources:
+  - health:
+      status: Missing
+    kind: ConfigMap
+    name: cmm-provisioning-script
+    namespace: d1e1az1amf01
+    status: Unknown
+    version: v1
+  - health:
+      status: Missing
+    kind: ServiceAccount
+    name: cmm-operator
+    namespace: d1e1az1amf01
+    status: Unknown
+    version: v1
+  - group: apps
+    health:
+      status: Missing
+    kind: Deployment
+    name: cmm-operator
+    namespace: d1e1az1amf01
+    status: Unknown
+    version: v1
+  - group: cmm.nokia.com
+    health:
+      status: Missing
+    kind: CMM
+    name: cmm
+    namespace: d1e1az1amf01
+    status: Unknown
+    version: vcmm24-7
+  - group: rbac.authorization.k8s.io
+    health:
+      status: Missing
+    kind: Role
+    name: cmm-operator
+    namespace: d1e1az1amf01
+    status: Unknown
+    version: v1
+  - group: rbac.authorization.k8s.io
+    health:
+      status: Missing
+    kind: RoleBinding
+    name: cmm-operator
+    namespace: d1e1az1amf01
+    status: Unknown
+    version: v1
+  sourceTypes:
+  - Helm
+  - ""
+  summary: {}
+  sync:
+    comparedTo:
+      destination:
+        name: nk-rdc-amf-cicd-demo
+        namespace: d1e1az1amf01
+      sources:
+      - chart: CMM-operator-k8s
+        helm:
+          releaseName: amf
+          valueFiles:
+          - $values/us-east-1/nk-rdc-amf-cicd-demo/workloads/amf/values/values.yaml
+        repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/api/v4/projects/525/packages/helm/stable/
+        targetRevision: 24.7.0-P3
+      - ref: values
+        repoURL: https://portal.cicd.gitlab.int.aws.sourced.io/v3-configuration-dev/isv-configuration/nk-rdc-dev/nk-rdc-dev
+        targetRevision: release-3
+    revisions:
+    - 24.7.0-P3
+    - 8501315fdf1ac19ddca60bd6fa0c9fbc911cd0d8
+    status: Unknown
