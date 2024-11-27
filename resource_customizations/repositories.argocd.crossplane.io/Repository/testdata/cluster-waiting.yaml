@@ -1,0 +1,174 @@
+apiVersion: gitops.k8s.dish.io/v1beta1
+kind: Cluster
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: >-
+      platform-rmc-clusters-app:gitops.k8s.dish.io/Cluster:rmc-clusters-infra/rmc-caf-usw2pt
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"gitops.k8s.dish.io/v1beta1","kind":"Cluster","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"platform-rmc-clusters-app:gitops.k8s.dish.io/Cluster:rmc-clusters-infra/rmc-caf-usw2pt"},"name":"rmc-caf-usw2pt","namespace":"rmc-clusters-infra"},"spec":{"compositionRevisionSelector":{"matchLabels":{"gitops.k8s.dish.io/version":"0.4.0","provider":"aws"}},"nodeGroups":[{"desiredSize":1,"instanceType":"m5.2xlarge","minSize":1,"name":"mgmt-1-az1","subnetIds":["subnet-06b025e09c12f4e11"],"volumeSize":50},{"capacityType":"SPOT","desiredSize":1,"instanceType":"m5.2xlarge","minSize":1,"name":"mgmt-1-az2","subnetIds":["subnet-0fb3ea0e43234389a"],"volumeSize":50},{"capacityType":"SPOT","desiredSize":1,"instanceType":"m5.2xlarge","minSize":1,"name":"mgmt-1-az3","subnetIds":["subnet-04f72f198556cbb2c"],"volumeSize":50}],"parameters":{"accessEntries":[{"name":"wpaas-admin-role","policies":[{"policyName":"AmazonEKSClusterAdminPolicy"}],"roleARN":"arn:aws:iam::936341046996:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_DishWPaaSOperator_d346ffff22e60259"}],"addons":[{"addonName":"coredns","addonVersion":"v1.11.1-eksbuild.3"}],"amiId":"ami-0b5962c42db856256","clusterMetadata":{"clusterType":"rmc","environment":"dev","serviceTier":"nonp"},"controlPlaneSubnetIds":["subnet-0fb3ea0e43234389a","subnet-06b025e09c12f4e11","subnet-04f72f198556cbb2c"],"customNetworking":{"enabled":true,"subnets":[{"azName":"us-west-2a","subnetId":"subnet-0f6bea793ea290ad5"},{"azName":"us-west-2b","subnetId":"subnet-04437cdd4b4e371ae"},{"azName":"us-west-2c","subnetId":"subnet-031f1c276794b4487"}]},"dishAddons":{"argocd":{"albCertficateArn":"arn:aws:acm:us-west-2:936341046996:certificate/16d1b657-c1c3-422c-a2c1-a8c07ba5cc69","elbSubnetIds":["subnet-0583d2b8b832f4dfc","subnet-09ad77b5d3f0eb7fb","subnet-0d7ce4b0f8da0834c"],"enabled":true,"fqdn":"rmc-caf-usw2pt.cicd.int.aws.dish-wireless.net"},"awsAutoScaler":{"enabled":true},"awsElbController":{"enabled":true},"cloudability":{"cloudabilityAccountNumber":"936341046996","enabled":true},"crossplane":{"awsProviderPolicyArns":["arn:aws:iam::aws:policy/AdministratorAccess"],"enabled":true},"externalSecrets":{"enabled":true},"velero":{"enabled":true}},"enableIRSA":true,"enabledClusterLogTypes":["api","audit"],"endpointPrivateAccess":true,"endpointPublicAccess":true,"tags":{"dish:business:owner":"cicd-team","dish:business:support-team":"amdocs-support","dish:created_by":"crossplane-v3","dish:deployment:deployedby":"argocd-v3"},"version":"1.29","vpcId":"vpc-062f47982065008e2"},"resourceConfig":{"deletionPolicy":"Delete","managementPolicies":["Create","Delete","LateInitialize","Observe","Update"],"region":"us-west-2"}}}
+  creationTimestamp: '2024-09-26T15:48:24Z'
+  finalizers:
+    - finalizer.apiextensions.crossplane.io
+  generation: 16
+  labels:
+    test: iqp
+  name: rmc-caf-usw2pt
+  namespace: rmc-clusters-infra
+  resourceVersion: '41404046'
+  uid: 14a76912-2983-4bc6-b963-dba031672dab
+spec:
+  compositeDeletePolicy: Background
+  compositionRef:
+    name: xcluster.kcl.aws.gitops.k8s.dish.io
+  compositionRevisionRef:
+    name: xcluster.kcl.aws.gitops.k8s.dish.io-e27911d
+  compositionRevisionSelector:
+    matchLabels:
+      gitops.k8s.dish.io/version: 0.4.0
+      provider: aws
+  compositionUpdatePolicy: Automatic
+  nodeGroups:
+    - capacityType: ON_DEMAND
+      desiredSize: 1
+      instanceType: m5.2xlarge
+      maxSize: 10
+      metadataOptions:
+        httpEndpoint: enabled
+        httpPutResponseHopLimit: 1
+        httpTokens: optional
+      minSize: 1
+      name: mgmt-1-az1
+      subnetIds:
+        - subnet-06b025e09c12f4e11
+      volumeSize: 50
+    - capacityType: SPOT
+      desiredSize: 1
+      instanceType: m5.2xlarge
+      maxSize: 10
+      metadataOptions:
+        httpEndpoint: enabled
+        httpPutResponseHopLimit: 1
+        httpTokens: optional
+      minSize: 1
+      name: mgmt-1-az2
+      subnetIds:
+        - subnet-0fb3ea0e43234389a
+      volumeSize: 50
+    - capacityType: SPOT
+      desiredSize: 1
+      instanceType: m5.2xlarge
+      maxSize: 10
+      metadataOptions:
+        httpEndpoint: enabled
+        httpPutResponseHopLimit: 1
+        httpTokens: optional
+      minSize: 1
+      name: mgmt-1-az3
+      subnetIds:
+        - subnet-04f72f198556cbb2c
+      volumeSize: 50
+  parameters:
+    accessEntries:
+      - name: wpaas-admin-role
+        policies:
+          - policyName: AmazonEKSClusterAdminPolicy
+        roleARN: >-
+          arn:aws:iam::936341046996:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_DishWPaaSOperator_d346ffff22e60259
+    addons:
+      - addonName: coredns
+        addonVersion: v1.11.1-eksbuild.3
+    amiId: ami-0b5962c42db856256
+    clusterMetadata:
+      clusterType: rmc
+      environment: dev
+      serviceTier: nonp
+    controlPlaneSubnetIds:
+      - subnet-0fb3ea0e43234389a
+      - subnet-06b025e09c12f4e11
+      - subnet-04f72f198556cbb2c
+    customNetworking:
+      enabled: true
+      minIPTarget: 25
+      subnets:
+        - azName: us-west-2a
+          subnetId: subnet-0f6bea793ea290ad5
+        - azName: us-west-2b
+          subnetId: subnet-04437cdd4b4e371ae
+        - azName: us-west-2c
+          subnetId: subnet-031f1c276794b4487
+      warmIPTarget: 8
+    dishAddons:
+      argocd:
+        albCertficateArn: >-
+          arn:aws:acm:us-west-2:936341046996:certificate/16d1b657-c1c3-422c-a2c1-a8c07ba5cc69
+        elbSubnetIds:
+          - subnet-0583d2b8b832f4dfc
+          - subnet-09ad77b5d3f0eb7fb
+          - subnet-0d7ce4b0f8da0834c
+        enabled: true
+        fqdn: rmc-caf-usw2pt.cicd.int.aws.dish-wireless.net
+      awsAutoScaler:
+        enabled: true
+      awsElbController:
+        enabled: true
+      cloudability:
+        cloudabilityAccountNumber: '936341046996'
+        enabled: true
+      crossplane:
+        awsProviderPolicyArns:
+          - arn:aws:iam::aws:policy/AdministratorAccess
+        enabled: true
+      externalSecrets:
+        enabled: true
+      fluentbit:
+        enabled: true
+      twistlock:
+        enabled: true
+      velero:
+        enabled: true
+    enableIRSA: true
+    enabledClusterLogTypes:
+      - api
+      - audit
+    endpointPrivateAccess: true
+    endpointPublicAccess: true
+    logGroupRetentionDays: 30
+    networkId: ''
+    tags:
+      dish:business:owner: cicd-team
+      dish:business:support-team: amdocs-support
+      dish:created_by: crossplane-v3
+      dish:deployment:deployedby: argocd-v3
+    version: '1.29'
+    vpcId: vpc-062f47982065008e2
+  resourceConfig:
+    deletionPolicy: Delete
+    managementPolicies:
+      - Create
+      - Delete
+      - LateInitialize
+      - Observe
+      - Update
+    region: us-west-2
+  resourceRef:
+    apiVersion: gitops.k8s.dish.io/v1beta1
+    kind: XCluster
+    name: rmc-caf-usw2pt-nfvtj
+status:
+  accountNumber: '936341046996'
+  allNodesReady: false
+  clusterName: rmc-caf-usw2pt
+  clusterSecurityGroupId: sg-0abee7546aeb96255
+  conditions:
+    - lastTransitionTime: '2024-09-26T15:48:24Z'
+      reason: ReconcileSuccess
+      status: 'True'
+      type: Synced
+    - lastTransitionTime: '2024-11-27T17:21:54Z'
+      message: Claim is waiting for composite resource to become Ready
+      reason: Waiting
+      status: 'False'
+      type: Ready
+  kmsKeyARN: arn:aws:kms:us-west-2:936341046996:key/af05a550-ddb5-4b4c-a0ee-1bbdbd3b7a1f
+  nodeSecurityGroupId: sg-066599cf4d9c1957c
+  oidcIssuerUrl: https://oidc.eks.us-west-2.amazonaws.com/id/809B4A25BEF0428A67256DA84B141DD8

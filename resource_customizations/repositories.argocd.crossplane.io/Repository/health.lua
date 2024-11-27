@@ -19,13 +19,6 @@ local function to_timestamp(date_str)
                   isdst = false})
 end
 
--- Custom sorting function based on the 'lastTransitionTime' field
-table.sort(obj.status.conditions, function(a, b)
-  local time_a = to_timestamp(a.lastTransitionTime)
-  local time_b = to_timestamp(b.lastTransitionTime)
-  return time_a < time_b  -- Sort in ascending order (earliest first)
-end)
-
 local has_no_status = {
   "ProviderConfig",
   "ProviderConfigUsage",
@@ -51,13 +44,25 @@ if obj.status == nil or next(obj.status) == nil or obj.status.conditions == nil 
 end
 
 -- Shortcut for resources with atProvider state such as repositories.argocd.crossplane.io
-if obj.status.atProvider.connectionState then
-  if obj.status.atProvider.connectionState.status == "Failed" then
-    health_status.status = "Degraded"
-    health_status.message = obj.status.atProvider.connectionState.message
-    return health_status
+if obj.status.atProvider then
+  if obj.status.atProvider.connectionState then
+    if obj.status.atProvider.connectionState.status == "Failed" then
+      health_status.status = "Degraded"
+      health_status.message = obj.status.atProvider.connectionState.message
+      return health_status
+    end
   end
 end
+
+-- Custom sorting function based on the 'lastTransitionTime' field
+if obj.status ~= nil and obj.status.conditions then
+  table.sort(obj.status.conditions, function(a, b)
+    local time_a = to_timestamp(a.lastTransitionTime)
+    local time_b = to_timestamp(b.lastTransitionTime)
+    return time_a < time_b  -- Sort in ascending order (earliest first)
+  end)
+end
+
 -- Process all the states in from oldest to newest. (sorted in L26)
 for i, condition in ipairs(obj.status.conditions) do
   if condition.type == "LastAsyncOperation" then
@@ -74,7 +79,7 @@ for i, condition in ipairs(obj.status.conditions) do
     elseif condition.status == "False" and condition.reason == "ReconcilePaused" then
       health_status.status = "Suspended"
       health_status.message = condition.message
-    else
+    elseif condition.status == "False" then
       health_status.status = "Degraded"
       health_status.message = condition.message
     end
@@ -84,6 +89,9 @@ for i, condition in ipairs(obj.status.conditions) do
     if condition.status == "True" then
       health_status.status = "Healthy"
       health_status.message = "Resource is up-to-date."
+    elseif condition.status == "False" and condition.reason == "Creating" then
+      health_status.status = "Progressing"
+      health_status.message = condition.message
     end
   end
 end

@@ -1,0 +1,180 @@
+apiVersion: repositories.argocd.crossplane.io/v1alpha1
+kind: Repository
+# apiVersion: apiextensions.crossplane.io/v1
+# kind: Composition
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: >-
+      in-cluster-local-crossplane-compositions:apiextensions.crossplane.io/Composition:crossplane-system/xargocluster.kcl.aws.gitops.k8s.dish.io
+  labels:
+    gitops.k8s.dish.io/version: 0.1.0
+    provider: aws
+  name: xargocluster.kcl.aws.gitops.k8s.dish.io
+spec:
+  compositeTypeRef:
+    apiVersion: gitops.k8s.dish.io/v1beta1
+    kind: XArgoCluster
+  mode: Pipeline
+  pipeline:
+    - functionRef:
+        name: kcl-function
+      input:
+        apiVersion: krm.kcl.dev/v1alpha1
+        kind: KCLInput
+        spec:
+          source: >
+            import regex
+
+            xr = option("params")?.oxr
+
+            ocds = option("params")?.ocds
+
+
+            clusterResource =
+            ocds?[observedCluster.metadata.name]?.Resource?.status?.atProvider #
+            This is used to retrieve the information about target EKS cluster
+
+
+            xrName = xr.metadata.name
+
+            namespace = xr.metadata.labels?["crossplane.io/claim-namespace"] or
+            "crossplane-system"
+
+
+            commonPatchSet = {
+              spec.providerConfigRef.name = "argocd-provider-config" # This provider config should always point to local ArgoCD
+              spec.deletionPolicy = xr.spec.resourceConfig.deletionPolicy
+              spec.managementPolicies = xr.spec.resourceConfig.managementPolicies
+            }
+
+
+            observedCluster = {
+              apiVersion = "eks.aws.upbound.io/v1beta1"
+              kind = "Cluster"
+              metadata.name = xrName + "-observed-cluster"
+              metadata.annotations = {
+                  "crossplane.io/external-name" = xr.spec.parameters.cluster.name # Name of the cluster to watch
+                }
+              spec.forProvider = {
+                region = xr.spec.parameters.cluster.region
+              }
+              spec.providerConfigRef.name = "{}-aws-provider-config".format(namespace)
+              spec.managementPolicies = ["Observe"]
+            }
+
+
+
+            if clusterResource: # wait for cluster information to be ready
+              accountNumber = regex.split(clusterResource.arn,":")[4]
+              eksOidcIssuer = clusterResource.identity?[0]?.oidc?[0]?.issuer
+              allTags = clusterResource.tags
+
+              _veleroReady = True
+              _cloudablityReady = True
+
+              if xr.spec.parameters?.customAddons?.velero?.enabled:
+                _veleroReady = False
+                velero = {
+                  apiVersion = "gitops.k8s.dish.io/v1beta1"
+                  kind = "XVelero"
+                  spec.compositionRevisionSelector.matchLabels = {
+                    provider =  "aws"
+                    "gitops.k8s.dish.io/version" = "0.1.1"
+                  }
+                  metadata.name = xrName + "-velero"
+                  spec.parameters = {
+                    "accountNumber" = accountNumber
+                    "oidcProviderURL" = eksOidcIssuer
+                    tags = allTags
+                  }
+                  spec.resourceConfig.region = xr.spec.parameters.cluster.region
+                  spec.resourceConfig.deletionPolicy = xr.spec.resourceConfig.deletionPolicy
+                  spec.resourceConfig.managementPolicies = xr.spec.resourceConfig.managementPolicies
+                }
+
+                veleroRoleArn = ocds?[velero.metadata.name]?.Resource?.status?.roleArn or Undefined
+                veleroPrimaryStorageName = ocds?[velero.metadata.name]?.Resource?.status?.primaryStorageName or Undefined 
+
+                veleroLabels = {
+                  "addons.gitops.dish.io/velero" = "true"
+                }
+                veleroAnnotations = {
+                  "velero.addons.gitops.dish.io/role-arn" = veleroRoleArn
+                  "velero.addons.gitops.dish.io/storage-location" = veleroPrimaryStorageName
+                }
+                if veleroRoleArn:
+                  _veleroReady = True
+
+
+              if xr.spec.parameters?.customAddons?.cloudability?.enabled:
+                _cloudablityReady = False
+                cloudabilitySecretsRole = {
+                  apiVersion = "gitops.k8s.dish.io/v1beta1"
+                  kind = "XIrsa"
+                  spec.compositionRevisionSelector.matchLabels = {
+                    provider =  "aws"
+                    "gitops.k8s.dish.io/version" = "0.1.6"
+                  }
+                  metadata.name = xrName + "-cloudability-secrets-role"
+                  spec.parameters = {
+                    "accountNumber" = accountNumber
+                    "cloudabilityAccountNumber" = xr.spec.parameters?.customAddons?.cloudability?.cloudabilityAccountNumber
+                    "region" = xr.spec.parameters.cluster.region
+                    "oidcProviderURL" = eksOidcIssuer
+                    "namespace" = "cloudability"
+                    "serviceAccountName" = "external-secrets-sa"
+                    "testCondition" = "StringEquals"
+                    "attachCloudabilitySecretsPolicy" = True
+                    tags = allTags
+                  }
+                  spec.resourceConfig.deletionPolicy = xr.spec.resourceConfig.deletionPolicy
+                  spec.resourceConfig.managementPolicies = xr.spec.resourceConfig.managementPolicies
+                }
+
+                cloudabilitySecretsRoleArn = ocds?[cloudabilitySecretsRole.metadata.name]?.Resource?.status?.roleArn or Undefined
+                cloudabilityLabels = {
+                  "addons.gitops.dish.io/cloudability" = "true"
+                }
+                cloudabilityAnnotations = {
+                  "cloudability.addons.gitops.dish.io/role-arn" = cloudabilitySecretsRoleArn
+                }
+                if cloudabilitySecretsRoleArn:
+                  _cloudablityReady = True
+
+
+              if _cloudablityReady and _veleroReady: # Don't create the cluster until velero and cloudability resources are ready
+                argocdCluster = {
+                  apiVersion = "cluster.argocd.crossplane.io/v1alpha1"
+                  kind = "Cluster"
+                  metadata.name = xrName + "-argocd-cluster"
+                  spec.forProvider = {
+                    annotations = { **xr.spec.parameters?.annotations, **veleroAnnotations , **cloudabilityAnnotations}
+                    labels = { **xr.spec.parameters?.labels, **veleroLabels , **cloudabilityLabels}
+                    # Adding the query parameters to make the server url unique (this is a hack/workaround)
+                    server = clusterResource?.endpoint + "?__uid=99"
+
+                    config.awsAuthConfig = {
+                      clusterName = clusterResource?.id
+                      roleARN = "arn:aws:iam::{}:role/argocd-cluster-access-{}".format(accountNumber, clusterResource?.id)
+                    }
+
+                    # The provider doesn't support secure connections. Once it is fixed this has to be changed to False
+                    # see the issue here https://github.com/crossplane-contrib/provider-argocd/issues/192
+                    config.tlsClientConfig = {
+                      insecure = True 
+                      caData = clusterResource?.certificateAuthority?[0].data
+                    }
+                    name = xr.spec.parameters.cluster.name
+                  }
+                } | commonPatchSet 
+
+            items = [
+                observedCluster
+                argocdCluster
+                velero
+                cloudabilitySecretsRole
+            ] 
+      step: init
+    - functionRef:
+        name: function-auto-ready
+      step: automatically-detect-ready-composed-resources

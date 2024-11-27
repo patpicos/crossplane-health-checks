@@ -1,0 +1,448 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: "2024-10-02T19:17:41Z"
+  generation: 28232
+  name: cert-mgr-test-cert-manager-app-of-app
+  namespace: argocd
+  ownerReferences:
+  - apiVersion: argoproj.io/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ApplicationSet
+    name: cert-manager
+    uid: e893180b-6cf8-4067-a69f-c13683b50948
+  resourceVersion: "41413679"
+  uid: 094a1b01-78b3-4506-abc9-216ddac96c58
+spec:
+  destination:
+    name: in-cluster-local
+    namespace: argocd
+  project: platform-cluster-bootstrap-prj
+  source:
+    chart: sequential-apps
+    helm:
+      releaseName: cert-manager
+      valuesObject:
+        destination:
+          server: https://4F4574CB2DB5525515954E7DA24F76EE.gr7.us-west-2.eks.amazonaws.com
+        global:
+          syncPolicy:
+            automated:
+              prune: true
+              selfHeal: true
+            retry:
+              backoff:
+                duration: 5s
+                factor: 2
+                maxDuration: 3m0s
+              limit: 5
+            syncOptions:
+            - CreateNamespace=true
+        project: platform-cluster-bootstrap-prj
+        steps:
+        - destination:
+            namespace: cert-manager
+          name: cert-mgr-test-cert-manager
+          source:
+            chart: cert-manager
+            helm:
+              valuesObject:
+                cainjector:
+                  image:
+                    repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-cainjector
+                crds:
+                  enabled: true
+                image:
+                  repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-controller
+                prometheus:
+                  enabled: true
+                startupapicheck:
+                  image:
+                    repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-startupapicheck
+                webhook:
+                  image:
+                    repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-webhook
+            releaseName: cert-manager
+            repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/461/packages/helm/stable/
+            targetRevision: 1.15.3
+        - destination:
+            namespace: aws-pca-issuer
+          name: cert-mgr-test-aws-privateca-issuer
+          source:
+            chart: aws-privateca-issuer
+            helm:
+              valuesObject:
+                image:
+                  repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com/k1n1h4h4/cert-manager-aws-privateca-issuer
+                  tag: v1.3.0
+                serviceAccount:
+                  annotations:
+                    eks.amazonaws.com/role-arn: arn:aws:iam::936341046996:role/cert-mgr-test-qlhg9-cert-manager-role
+                  create: true
+            repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/461/packages/helm/stable/
+            targetRevision: 1.3.0
+        - name: cert-mgr-test-pca-config
+          source:
+            chart: extra-objects
+            helm:
+              valuesObject:
+                extraObjects:
+                - apiVersion: awspca.cert-manager.io/v1beta1
+                  kind: AWSPCAClusterIssuer
+                  metadata:
+                    name: aws-pca
+                  spec:
+                    arn: arn:aws:acm-pca:us-west-2:028267308726:certificate-authority/c3c79434-a242-47a6-9a25-cc8325340d1c
+                    region: us-west-2
+            repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+            targetRevision: 1.0.0
+    repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+    targetRevision: 1.1.0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+status:
+  conditions:
+  - lastTransitionTime: "2024-11-27T17:37:37Z"
+    message: |-
+      Failed to load target state: failed to generate manifest for source 1 of 1: rpc error: code = Unknown desc = Manifest generation error (cached): failed to execute helm template command: failed to get command args to log: `helm template . --name-template cert-manager --namespace argocd --kube-version 1.29 --values /tmp/80eb0c96-8ed8-4fcd-b4b9-c580b3197f74 <api versions removed> --include-crds` failed exit status 1: Error: execution error at (sequential-apps/templates/application.yaml:48:87): namespace is required
+
+      Use --debug flag to render out invalid YAML
+    type: ComparisonError
+  - lastTransitionTime: "2024-11-21T14:53:37Z"
+    message: Application has 180 orphaned resources
+    type: OrphanedResourceWarning
+  controllerNamespace: argocd
+  health:
+    status: Healthy
+  history:
+  - deployStartedAt: "2024-10-02T19:17:41Z"
+    deployedAt: "2024-10-02T19:48:54Z"
+    id: 0
+    initiatedBy:
+      automated: true
+    revision: 1.1.0
+    source:
+      chart: sequential-apps
+      helm:
+        releaseName: cert-manager
+        valuesObject:
+          destination:
+            server: https://4F4574CB2DB5525515954E7DA24F76EE.gr7.us-west-2.eks.amazonaws.com
+          global:
+            syncPolicy:
+              automated:
+                prune: true
+                selfHeal: true
+              retry:
+                backoff:
+                  duration: 5s
+                  factor: 2
+                  maxDuration: 3m0s
+                limit: 5
+              syncOptions:
+              - CreateNamespace=true
+          project: platform-cluster-bootstrap-prj
+          steps:
+          - destination:
+              namespace: cert-manager
+            name: cert-mgr-test-cert-manager
+            source:
+              chart: cert-manager
+              helm:
+                valuesObject:
+                  cainjector:
+                    image:
+                      repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-cainjector
+                  crds:
+                    enabled: true
+                  image:
+                    repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-controller
+                  prometheus:
+                    enabled: true
+                  startupapicheck:
+                    image:
+                      repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-startupapicheck
+                  webhook:
+                    image:
+                      repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-webhook
+              repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/461/packages/helm/stable/
+              targetRevision: 1.15.3
+          - destination:
+              namespace: aws-pca-issuer
+            name: cert-mgr-test-aws-privateca-issuer
+            source:
+              chart: aws-privateca-issuer
+              helm:
+                valuesObject:
+                  image:
+                    repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com/k1n1h4h4/cert-manager-aws-privateca-issuer
+                    tag: v1.3.0
+                  serviceAccount:
+                    annotations:
+                      eks.amazonaws.com/role-arn: arn:aws:iam::936341046996:role/cert-mgr-test-qlhg9-cert-manager-role
+                    create: true
+              repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/461/packages/helm/stable/
+              targetRevision: 1.3.0
+          - name: cert-mgr-test-pca-config
+            source:
+              chart: extra-objects
+              helm:
+                valuesObject:
+                  extraObjects:
+                  - apiVersion: awspca.cert-manager.io/v1beta1
+                    kind: AWSPCAClusterIssuer
+                    metadata:
+                      name: aws-pca
+                    spec:
+                      arn: arn:aws:acm-pca:us-west-2:028267308726:certificate-authority/c3c79434-a242-47a6-9a25-cc8325340d1c
+                      region: us-west-2
+              repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+              targetRevision: 1.0.0
+      repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.1.0
+  operationState:
+    finishedAt: "2024-10-02T19:48:54Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        limit: 5
+      sync:
+        prune: true
+        revision: 1.1.0
+        syncOptions:
+        - CreateNamespace=true
+    phase: Succeeded
+    retryCount: 4
+    startedAt: "2024-10-02T19:17:41Z"
+    syncResult:
+      resources:
+      - group: argoproj.io
+        hookPhase: Succeeded
+        kind: Application
+        message: application.argoproj.io/cert-mgr-test-cert-manager unchanged
+        name: cert-mgr-test-cert-manager
+        namespace: argocd
+        status: Synced
+        syncPhase: Sync
+        version: v1alpha1
+      - group: argoproj.io
+        hookPhase: Succeeded
+        kind: Application
+        message: application.argoproj.io/cert-mgr-test-aws-privateca-issuer created
+        name: cert-mgr-test-aws-privateca-issuer
+        namespace: argocd
+        status: Synced
+        syncPhase: Sync
+        version: v1alpha1
+      - group: argoproj.io
+        hookPhase: Running
+        kind: Application
+        message: application.argoproj.io/cert-mgr-test-pca-config created
+        name: cert-mgr-test-pca-config
+        namespace: argocd
+        status: Synced
+        syncPhase: Sync
+        version: v1alpha1
+      revision: 1.1.0
+      source:
+        chart: sequential-apps
+        helm:
+          releaseName: cert-manager
+          valuesObject:
+            destination:
+              server: https://4F4574CB2DB5525515954E7DA24F76EE.gr7.us-west-2.eks.amazonaws.com
+            global:
+              syncPolicy:
+                automated:
+                  prune: true
+                  selfHeal: true
+                retry:
+                  backoff:
+                    duration: 5s
+                    factor: 2
+                    maxDuration: 3m0s
+                  limit: 5
+                syncOptions:
+                - CreateNamespace=true
+            project: platform-cluster-bootstrap-prj
+            steps:
+            - destination:
+                namespace: cert-manager
+              name: cert-mgr-test-cert-manager
+              source:
+                chart: cert-manager
+                helm:
+                  valuesObject:
+                    cainjector:
+                      image:
+                        repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-cainjector
+                    crds:
+                      enabled: true
+                    image:
+                      repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-controller
+                    prometheus:
+                      enabled: true
+                    startupapicheck:
+                      image:
+                        repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-startupapicheck
+                    webhook:
+                      image:
+                        repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-webhook
+                repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/461/packages/helm/stable/
+                targetRevision: 1.15.3
+            - destination:
+                namespace: aws-pca-issuer
+              name: cert-mgr-test-aws-privateca-issuer
+              source:
+                chart: aws-privateca-issuer
+                helm:
+                  valuesObject:
+                    image:
+                      repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com/k1n1h4h4/cert-manager-aws-privateca-issuer
+                      tag: v1.3.0
+                    serviceAccount:
+                      annotations:
+                        eks.amazonaws.com/role-arn: arn:aws:iam::936341046996:role/cert-mgr-test-qlhg9-cert-manager-role
+                      create: true
+                repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/461/packages/helm/stable/
+                targetRevision: 1.3.0
+            - name: cert-mgr-test-pca-config
+              source:
+                chart: extra-objects
+                helm:
+                  valuesObject:
+                    extraObjects:
+                    - apiVersion: awspca.cert-manager.io/v1beta1
+                      kind: AWSPCAClusterIssuer
+                      metadata:
+                        name: aws-pca
+                      spec:
+                        arn: arn:aws:acm-pca:us-west-2:028267308726:certificate-authority/c3c79434-a242-47a6-9a25-cc8325340d1c
+                        region: us-west-2
+                repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+                targetRevision: 1.0.0
+        repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+        targetRevision: 1.1.0
+  reconciledAt: "2024-11-27T17:45:39Z"
+  resources:
+  - group: argoproj.io
+    health:
+      status: Healthy
+    kind: Application
+    name: cert-mgr-test-aws-privateca-issuer
+    namespace: argocd
+    requiresPruning: true
+    status: Unknown
+    version: v1alpha1
+  - group: argoproj.io
+    health:
+      status: Healthy
+    kind: Application
+    name: cert-mgr-test-cert-manager
+    namespace: argocd
+    requiresPruning: true
+    status: Unknown
+    version: v1alpha1
+  - group: argoproj.io
+    health:
+      status: Healthy
+    kind: Application
+    name: cert-mgr-test-pca-config
+    namespace: argocd
+    requiresPruning: true
+    status: Unknown
+    version: v1alpha1
+  summary: {}
+  sync:
+    comparedTo:
+      destination:
+        name: in-cluster-local
+        namespace: argocd
+      source:
+        chart: sequential-apps
+        helm:
+          releaseName: cert-manager
+          valuesObject:
+            destination:
+              server: https://4F4574CB2DB5525515954E7DA24F76EE.gr7.us-west-2.eks.amazonaws.com
+            global:
+              syncPolicy:
+                automated:
+                  prune: true
+                  selfHeal: true
+                retry:
+                  backoff:
+                    duration: 5s
+                    factor: 2
+                    maxDuration: 3m0s
+                  limit: 5
+                syncOptions:
+                - CreateNamespace=true
+            project: platform-cluster-bootstrap-prj
+            steps:
+            - destination:
+                namespace: cert-manager
+              name: cert-mgr-test-cert-manager
+              source:
+                chart: cert-manager
+                helm:
+                  valuesObject:
+                    cainjector:
+                      image:
+                        repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-cainjector
+                    crds:
+                      enabled: true
+                    image:
+                      repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-controller
+                    prometheus:
+                      enabled: true
+                    startupapicheck:
+                      image:
+                        repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-startupapicheck
+                    webhook:
+                      image:
+                        repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com/jetstack/cert-manager-webhook
+                releaseName: cert-manager
+                repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/461/packages/helm/stable/
+                targetRevision: 1.15.3
+            - destination:
+                namespace: aws-pca-issuer
+              name: cert-mgr-test-aws-privateca-issuer
+              source:
+                chart: aws-privateca-issuer
+                helm:
+                  valuesObject:
+                    image:
+                      repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com/k1n1h4h4/cert-manager-aws-privateca-issuer
+                      tag: v1.3.0
+                    serviceAccount:
+                      annotations:
+                        eks.amazonaws.com/role-arn: arn:aws:iam::936341046996:role/cert-mgr-test-qlhg9-cert-manager-role
+                      create: true
+                repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/461/packages/helm/stable/
+                targetRevision: 1.3.0
+            - name: cert-mgr-test-pca-config
+              source:
+                chart: extra-objects
+                helm:
+                  valuesObject:
+                    extraObjects:
+                    - apiVersion: awspca.cert-manager.io/v1beta1
+                      kind: AWSPCAClusterIssuer
+                      metadata:
+                        name: aws-pca
+                      spec:
+                        arn: arn:aws:acm-pca:us-west-2:028267308726:certificate-authority/c3c79434-a242-47a6-9a25-cc8325340d1c
+                        region: us-west-2
+                repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+                targetRevision: 1.0.0
+        repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+        targetRevision: 1.1.0
+    status: Unknown

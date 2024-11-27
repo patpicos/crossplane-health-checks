@@ -21,3 +21,19 @@ tests:
     status: Healthy
     message: ""
   inputPath: testdata/healthy.yaml
+
+- healthStatus:
+    status: Degraded
+    message: "error setting app health: failed to get resource health for \"Composition\"
+      with name \"xargocluster.kcl.aws.gitops.k8s.dish.io\" in namespace \"\": <string>:23:
+      attempt to index a non-table object(nil) with key 'conditions'\nstack traceback:\n\t<string>:23:
+      in main chunk\n\t[G]: ?"
+  inputPath: testdata/compo.yaml
+
+- healthStatus:
+    status: Degraded
+    message: |-
+      Failed to load target state: failed to generate manifest for source 1 of 1: rpc error: code = Unknown desc = Manifest generation error (cached): failed to execute helm template command: failed to get command args to log: `helm template . --name-template cert-manager --namespace argocd --kube-version 1.29 --values /tmp/80eb0c96-8ed8-4fcd-b4b9-c580b3197f74 <api versions removed> --include-crds` failed exit status 1: Error: execution error at (sequential-apps/templates/application.yaml:48:87): namespace is required
+
+      Use --debug flag to render out invalid YAML
+  inputPath: testdata/cert-mgr-app.yaml

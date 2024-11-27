@@ -1,0 +1,1924 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: "2024-09-26T15:24:51Z"
+  generation: 30266
+  name: in-cluster-local-crossplane-compositions
+  namespace: argocd
+  ownerReferences:
+  - apiVersion: argoproj.io/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ApplicationSet
+    name: crossplane-compositions
+    uid: c6e37aa5-f7c2-4465-915f-566d680039e2
+  resourceVersion: "41410018"
+  uid: 40505a79-3a2f-4f16-a14a-202d98eb85a6
+spec:
+  destination:
+    namespace: crossplane-system
+    server: https://1B0575F3696769C5B0120DFD65740348.gr7.us-west-2.eks.amazonaws.com
+  project: platform-cluster-bootstrap-prj
+  source:
+    chart: crossplane-compositions
+    helm:
+      valuesObject:
+        argocdProvider:
+          image:
+            tag: v0.9.1
+          secretPath: crossplane/mmc-caf-usw2pt/argocd-provider
+        awsProvider:
+          roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+        endpoints:
+          gitlab:
+            baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+          ldap:
+            baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+        extraObjects: []
+        functions:
+          functionAutoReady:
+            image:
+              tag: v0.2.1
+        gitlabProvider:
+          baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+          debug: true
+          enabled: true
+        httpProvider:
+          enabled: true
+        image:
+          repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com
+        onboarding:
+          continuousDeployment:
+            gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+            gitopsParentGroupId: 356
+            groupWithProjectTemplatesId: 186
+            templateProjectId: 432
+          continuousIntegration:
+            groupWithProjectTemplatesId: 186
+            helmChartParentGroupId: 182
+            helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+            templateProjectId: 91
+        secretStore:
+          region: us-west-2
+          roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+    repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+    targetRevision: 1.4.2
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
+status:
+  conditions:
+  - lastTransitionTime: "2024-11-27T17:36:21Z"
+    message: "error setting app health: failed to get resource health for \"Composition\"
+      with name \"xargocluster.kcl.aws.gitops.k8s.dish.io\" in namespace \"\": <string>:23:
+      attempt to index a non-table object(nil) with key 'conditions'\nstack traceback:\n\t<string>:23:
+      in main chunk\n\t[G]: ?"
+    type: ComparisonError
+  controllerNamespace: argocd
+  health:
+    status: Unknown
+  history:
+  - deployStartedAt: "2024-10-18T15:36:01Z"
+    deployedAt: "2024-10-18T15:37:19Z"
+    id: 1
+    initiatedBy:
+      username: admin
+    revision: 1.0.0
+    source:
+      chart: crossplane-compositions
+      helm:
+        valuesObject:
+          awsProvider:
+            roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+          endpoints:
+            gitlab:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+            ldap:
+              baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+          extraObjects: []
+          functions:
+            functionAutoReady:
+              image:
+                tag: v0.2.1
+            functionKcl:
+              image:
+                tag: v0.9.2
+          gitlabProvider:
+            baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+            debug: true
+            enabled: true
+          httpProvider:
+            enabled: true
+          image:
+            repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com
+          onboarding:
+            continuousDeployment:
+              gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+              gitopsParentGroupId: 356
+              groupWithProjectTemplatesId: 186
+              templateProjectId: 432
+            continuousIntegration:
+              groupWithProjectTemplatesId: 186
+              helmChartParentGroupId: 182
+              helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+              templateProjectId: 91
+          secretStore:
+            region: us-west-2
+            roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+      repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.0.0
+  - deployStartedAt: "2024-11-15T17:46:59Z"
+    deployedAt: "2024-11-15T17:47:31Z"
+    id: 2
+    initiatedBy:
+      automated: true
+    revision: 1.2.3
+    source:
+      chart: crossplane-compositions
+      helm:
+        valuesObject:
+          awsProvider:
+            roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+          endpoints:
+            gitlab:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+            ldap:
+              baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+          extraObjects: []
+          functions:
+            functionAutoReady:
+              image:
+                tag: v0.2.1
+            functionKcl:
+              image:
+                tag: v0.9.2
+          gitlabProvider:
+            baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+            debug: true
+            enabled: true
+          httpProvider:
+            enabled: true
+          image:
+            repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com
+          onboarding:
+            continuousDeployment:
+              gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+              gitopsParentGroupId: 356
+              groupWithProjectTemplatesId: 186
+              templateProjectId: 432
+            continuousIntegration:
+              groupWithProjectTemplatesId: 186
+              helmChartParentGroupId: 182
+              helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+              templateProjectId: 91
+          secretStore:
+            region: us-west-2
+            roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+      repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.2.3
+  - deployStartedAt: "2024-11-15T18:35:07Z"
+    deployedAt: "2024-11-15T18:35:23Z"
+    id: 3
+    initiatedBy:
+      automated: true
+    revision: 1.2.3
+    source:
+      chart: crossplane-compositions
+      helm:
+        valuesObject:
+          argocdProvider:
+            secretPath: crossplane/mmc-caf-usw2pt/argocd-provider
+          awsProvider:
+            roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+          endpoints:
+            gitlab:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+            ldap:
+              baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+          extraObjects: []
+          functions:
+            functionAutoReady:
+              image:
+                tag: v0.2.1
+            functionKcl:
+              image:
+                tag: v0.9.2
+          gitlabProvider:
+            baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+            debug: true
+            enabled: true
+          httpProvider:
+            enabled: true
+          image:
+            repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com
+          onboarding:
+            continuousDeployment:
+              gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+              gitopsParentGroupId: 356
+              groupWithProjectTemplatesId: 186
+              templateProjectId: 432
+            continuousIntegration:
+              groupWithProjectTemplatesId: 186
+              helmChartParentGroupId: 182
+              helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+              templateProjectId: 91
+          secretStore:
+            region: us-west-2
+            roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+      repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.2.3
+  - deployStartedAt: "2024-11-18T14:28:45Z"
+    deployedAt: "2024-11-18T14:29:08Z"
+    id: 4
+    initiatedBy:
+      automated: true
+    revision: 1.3.0
+    source:
+      chart: crossplane-compositions
+      helm:
+        valuesObject:
+          argocdProvider:
+            secretPath: crossplane/mmc-caf-usw2pt/argocd-provider
+          awsProvider:
+            roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+          endpoints:
+            gitlab:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+            ldap:
+              baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+          extraObjects: []
+          functions:
+            functionAutoReady:
+              image:
+                tag: v0.2.1
+          gitlabProvider:
+            baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+            debug: true
+            enabled: true
+          httpProvider:
+            enabled: true
+          image:
+            repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com
+          onboarding:
+            continuousDeployment:
+              gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+              gitopsParentGroupId: 356
+              groupWithProjectTemplatesId: 186
+              templateProjectId: 432
+            continuousIntegration:
+              groupWithProjectTemplatesId: 186
+              helmChartParentGroupId: 182
+              helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+              templateProjectId: 91
+          secretStore:
+            region: us-west-2
+            roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+      repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.3.0
+  - deployStartedAt: "2024-11-18T14:29:49Z"
+    deployedAt: "2024-11-18T14:30:09Z"
+    id: 5
+    initiatedBy: {}
+    revision: 1.3.0
+    source:
+      chart: crossplane-compositions
+      helm:
+        valuesObject:
+          argocdProvider:
+            secretPath: crossplane/mmc-caf-usw2pt/argocd-provider
+          awsProvider:
+            roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+          endpoints:
+            gitlab:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+            ldap:
+              baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+          extraObjects: []
+          functions:
+            functionAutoReady:
+              image:
+                tag: v0.2.1
+          gitlabProvider:
+            baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+            debug: true
+            enabled: true
+          httpProvider:
+            enabled: true
+          image:
+            repository: 936341046996.dkr.ecr.us-west-2.amazonaws.com
+          onboarding:
+            continuousDeployment:
+              gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+              gitopsParentGroupId: 356
+              groupWithProjectTemplatesId: 186
+              templateProjectId: 432
+            continuousIntegration:
+              groupWithProjectTemplatesId: 186
+              helmChartParentGroupId: 182
+              helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+              templateProjectId: 91
+          secretStore:
+            region: us-west-2
+            roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+      repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.3.0
+  - deployStartedAt: "2024-11-18T18:42:18Z"
+    deployedAt: "2024-11-18T18:42:38Z"
+    id: 6
+    initiatedBy:
+      automated: true
+    revision: 1.3.0
+    source:
+      chart: crossplane-compositions
+      helm:
+        valuesObject:
+          argocdProvider:
+            secretPath: crossplane/mmc-caf-usw2pt/argocd-provider
+          awsProvider:
+            roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+          endpoints:
+            gitlab:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+            ldap:
+              baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+          extraObjects: []
+          functions:
+            functionAutoReady:
+              image:
+                tag: v0.2.1
+          gitlabProvider:
+            baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+            debug: true
+            enabled: true
+          httpProvider:
+            enabled: true
+          image:
+            repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com
+          onboarding:
+            continuousDeployment:
+              gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+              gitopsParentGroupId: 356
+              groupWithProjectTemplatesId: 186
+              templateProjectId: 432
+            continuousIntegration:
+              groupWithProjectTemplatesId: 186
+              helmChartParentGroupId: 182
+              helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+              templateProjectId: 91
+          secretStore:
+            region: us-west-2
+            roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+      repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.3.0
+  - deployStartedAt: "2024-11-18T19:18:49Z"
+    deployedAt: "2024-11-18T19:25:57Z"
+    id: 7
+    initiatedBy:
+      username: admin
+    revision: 1.3.0
+    source:
+      chart: crossplane-compositions
+      helm:
+        valuesObject:
+          argocdProvider:
+            secretPath: crossplane/mmc-caf-usw2pt/argocd-provider
+          awsProvider:
+            roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+          endpoints:
+            gitlab:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+            ldap:
+              baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+          extraObjects: []
+          functions:
+            functionAutoReady:
+              image:
+                tag: v0.2.1
+          gitlabProvider:
+            baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+            debug: true
+            enabled: true
+          httpProvider:
+            enabled: true
+          image:
+            repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com
+          onboarding:
+            continuousDeployment:
+              gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+              gitopsParentGroupId: 356
+              groupWithProjectTemplatesId: 186
+              templateProjectId: 432
+            continuousIntegration:
+              groupWithProjectTemplatesId: 186
+              helmChartParentGroupId: 182
+              helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+              templateProjectId: 91
+          secretStore:
+            region: us-west-2
+            roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+      repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.4.0
+  - deployStartedAt: "2024-11-18T19:25:57Z"
+    deployedAt: "2024-11-18T19:26:14Z"
+    id: 8
+    initiatedBy:
+      automated: true
+    revision: 1.4.0
+    source:
+      chart: crossplane-compositions
+      helm:
+        valuesObject:
+          argocdProvider:
+            secretPath: crossplane/mmc-caf-usw2pt/argocd-provider
+          awsProvider:
+            roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+          endpoints:
+            gitlab:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+            ldap:
+              baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+          extraObjects: []
+          functions:
+            functionAutoReady:
+              image:
+                tag: v0.2.1
+          gitlabProvider:
+            baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+            debug: true
+            enabled: true
+          httpProvider:
+            enabled: true
+          image:
+            repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com
+          onboarding:
+            continuousDeployment:
+              gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+              gitopsParentGroupId: 356
+              groupWithProjectTemplatesId: 186
+              templateProjectId: 432
+            continuousIntegration:
+              groupWithProjectTemplatesId: 186
+              helmChartParentGroupId: 182
+              helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+              templateProjectId: 91
+          secretStore:
+            region: us-west-2
+            roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+      repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.4.0
+  - deployStartedAt: "2024-11-22T17:03:59Z"
+    deployedAt: "2024-11-22T17:04:28Z"
+    id: 9
+    initiatedBy:
+      automated: true
+    revision: 1.4.0
+    source:
+      chart: crossplane-compositions
+      helm:
+        valuesObject:
+          argocdProvider:
+            image:
+              tag: v0.9.1
+            secretPath: crossplane/mmc-caf-usw2pt/argocd-provider
+          awsProvider:
+            roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+          endpoints:
+            gitlab:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+            ldap:
+              baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+          extraObjects: []
+          functions:
+            functionAutoReady:
+              image:
+                tag: v0.2.1
+          gitlabProvider:
+            baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+            debug: true
+            enabled: true
+          httpProvider:
+            enabled: true
+          image:
+            repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com
+          onboarding:
+            continuousDeployment:
+              gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+              gitopsParentGroupId: 356
+              groupWithProjectTemplatesId: 186
+              templateProjectId: 432
+            continuousIntegration:
+              groupWithProjectTemplatesId: 186
+              helmChartParentGroupId: 182
+              helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+              templateProjectId: 91
+          secretStore:
+            region: us-west-2
+            roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+      repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.4.0
+  - deployStartedAt: "2024-11-22T22:02:55Z"
+    deployedAt: "2024-11-22T22:03:12Z"
+    id: 10
+    initiatedBy:
+      automated: true
+    revision: 1.4.2
+    source:
+      chart: crossplane-compositions
+      helm:
+        valuesObject:
+          argocdProvider:
+            image:
+              tag: v0.9.1
+            secretPath: crossplane/mmc-caf-usw2pt/argocd-provider
+          awsProvider:
+            roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+          endpoints:
+            gitlab:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+            ldap:
+              baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+          extraObjects: []
+          functions:
+            functionAutoReady:
+              image:
+                tag: v0.2.1
+          gitlabProvider:
+            baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+            debug: true
+            enabled: true
+          httpProvider:
+            enabled: true
+          image:
+            repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com
+          onboarding:
+            continuousDeployment:
+              gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+              gitopsParentGroupId: 356
+              groupWithProjectTemplatesId: 186
+              templateProjectId: 432
+            continuousIntegration:
+              groupWithProjectTemplatesId: 186
+              helmChartParentGroupId: 182
+              helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+              templateProjectId: 91
+          secretStore:
+            region: us-west-2
+            roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+      repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+      targetRevision: 1.4.2
+  operationState:
+    finishedAt: "2024-11-22T22:03:12Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        limit: 5
+      sync:
+        revision: 1.4.2
+        syncOptions:
+        - CreateNamespace=true
+    phase: Succeeded
+    startedAt: "2024-11-22T22:02:55Z"
+    syncResult:
+      resources:
+      - group: ""
+        hookPhase: Succeeded
+        kind: ServiceAccount
+        message: serviceaccount/external-secrets-sa unchanged
+        name: external-secrets-sa
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: external-secrets.io
+        hookPhase: Succeeded
+        kind: SecretStore
+        message: store validated
+        name: crossplane-store
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: DeploymentRuntimeConfig
+        message: Resource is up-to-date.
+        name: http-runtime-config
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: DeploymentRuntimeConfig
+        message: Resource is up-to-date.
+        name: argocd-runtime-config
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: DeploymentRuntimeConfig
+        message: Resource is up-to-date.
+        name: gitlab-runtime-config
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: DeploymentRuntimeConfig
+        message: Resource is up-to-date.
+        name: aws-runtime-config
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-aws-ec2
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-aws-autoscaling
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-aws-cloudwatchevents
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-gitlab
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-http
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-kubernetes
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-aws-eks
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-aws-lambda
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-aws-efs
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-aws-s3
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-aws-cloudwatchlogs
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-argocd
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-aws-iam
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-aws-sqs
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-family-aws
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Provider
+        message: Resource is up-to-date.
+        name: provider-aws-kms
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Function
+        message: Resource is up-to-date.
+        name: kcl-function
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: pkg.crossplane.io
+        hookPhase: Succeeded
+        kind: Function
+        message: Resource is up-to-date.
+        name: function-auto-ready
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: argocd.crossplane.io
+        hookPhase: Running
+        kind: ProviderConfig
+        message: providerconfig.argocd.crossplane.io/argocd-provider-config unchanged
+        name: argocd-provider-config
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1alpha1
+      - group: external-secrets.io
+        hookPhase: Running
+        kind: ExternalSecret
+        message: externalsecret.external-secrets.io/argocd-provider-creds configured
+        name: argocd-provider-creds
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: aws.upbound.io
+        hookPhase: Running
+        kind: ProviderConfig
+        message: providerconfig.aws.upbound.io/crossplane-system-aws-provider-config
+          unchanged
+        name: crossplane-system-aws-provider-config
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: gitlab.crossplane.io
+        hookPhase: Running
+        kind: ProviderConfig
+        message: providerconfig.gitlab.crossplane.io/gitlab-provider-config unchanged
+        name: gitlab-provider-config
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: external-secrets.io
+        hookPhase: Running
+        kind: ExternalSecret
+        message: externalsecret.external-secrets.io/gitlab-provider-creds configured
+        name: gitlab-provider-creds
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: http.crossplane.io
+        hookPhase: Running
+        kind: ProviderConfig
+        message: providerconfig.http.crossplane.io/http-provider-config-gitlab unchanged
+        name: http-provider-config-gitlab
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1alpha1
+      - group: external-secrets.io
+        hookPhase: Running
+        kind: ExternalSecret
+        message: externalsecret.external-secrets.io/http-provider-config-gitlab configured
+        name: http-provider-config-gitlab
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: http.crossplane.io
+        hookPhase: Running
+        kind: ProviderConfig
+        message: providerconfig.http.crossplane.io/http-provider-config-ldap unchanged
+        name: http-provider-config-ldap
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1alpha1
+      - group: external-secrets.io
+        hookPhase: Running
+        kind: ExternalSecret
+        message: externalsecret.external-secrets.io/http-provider-config-ldap configured
+        name: http-provider-config-ldap
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: aws.upbound.io
+        hookPhase: Running
+        kind: ProviderConfig
+        message: providerconfig.aws.upbound.io/rmc-clusters-infra-aws-provider-config
+          unchanged
+        name: rmc-clusters-infra-aws-provider-config
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1beta1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xargocluster.kcl.aws.gitops.k8s.dish.io
+          unchanged
+        name: xargocluster.kcl.aws.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xargoclusters.gitops.k8s.dish.io
+          unchanged
+        name: xargoclusters.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xcluster.kcl.aws.gitops.k8s.dish.io
+          configured
+        name: xcluster.kcl.aws.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xclusters.gitops.k8s.dish.io
+          configured
+        name: xclusters.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xcnfonboarding.kcl.onboarding.gitops.k8s.dish.io
+          unchanged
+        name: xcnfonboarding.kcl.onboarding.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xcnfonboardings.onboarding.gitops.k8s.dish.io
+          unchanged
+        name: xcnfonboardings.onboarding.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xefs.kcl.aws.gitops.k8s.dish.io
+          unchanged
+        name: xefs.kcl.aws.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xefss.gitops.k8s.dish.io
+          unchanged
+        name: xefss.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xgroup.kcl.ldap.gitops.k8s.dish.io
+          unchanged
+        name: xgroup.kcl.ldap.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xgroups.ldap.gitops.k8s.dish.io
+          unchanged
+        name: xgroups.ldap.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xhelmapplication.kcl.aws.gitops.k8s.dish.io
+          configured
+        name: xhelmapplication.kcl.aws.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xhelmapplications.gitops.k8s.dish.io
+          configured
+        name: xhelmapplications.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xirsa.kcl.aws.gitops.k8s.dish.io
+          unchanged
+        name: xirsa.kcl.aws.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xirsas.gitops.k8s.dish.io
+          unchanged
+        name: xirsas.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xisvcontinuousdeployment.kcl.onboarding.gitops.k8s.dish.io
+          unchanged
+        name: xisvcontinuousdeployment.kcl.onboarding.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xisvcontinuousdeployments.onboarding.gitops.k8s.dish.io
+          unchanged
+        name: xisvcontinuousdeployments.onboarding.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xisvcontinuousintegration.kcl.onboarding.gitops.k8s.dish.io
+          unchanged
+        name: xisvcontinuousintegration.kcl.onboarding.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xisvcontinuousintegrations.onboarding.gitops.k8s.dish.io
+          unchanged
+        name: xisvcontinuousintegrations.onboarding.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xlambda.kcl.aws.gitops.k8s.dish.io
+          unchanged
+        name: xlambda.kcl.aws.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xlambdas.gitops.k8s.dish.io
+          unchanged
+        name: xlambdas.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xldapgrouplink.kcl.gitlab.gitops.k8s.dish.io
+          unchanged
+        name: xldapgrouplink.kcl.gitlab.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xldapgrouplinks.gitlab.gitops.k8s.dish.io
+          unchanged
+        name: xldapgrouplinks.gitlab.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xmultus.kcl.aws.gitops.k8s.dish.io
+          unchanged
+        name: xmultus.kcl.aws.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xmultuss.gitops.k8s.dish.io
+          unchanged
+        name: xmultuss.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xnfsserver.kcl.aws.gitops.k8s.dish.io
+          unchanged
+        name: xnfsserver.kcl.aws.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xnfsservers.gitops.k8s.dish.io
+          unchanged
+        name: xnfsservers.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xnodegroup.kcl.aws.gitops.k8s.dish.io
+          unchanged
+        name: xnodegroup.kcl.aws.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xnodeterminationhandlers.gitops.k8s.dish.io
+          unchanged
+        name: xnodeterminationhandlers.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xnodegroups.gitops.k8s.dish.io
+          unchanged
+        name: xnodegroups.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xprojectjobtokenpermission.kcl.gitlab.gitops.k8s.dish.io
+          unchanged
+        name: xprojectjobtokenpermission.kcl.gitlab.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xnth.kcl.aws.gitops.k8s.dish.io
+          unchanged
+        name: xnth.kcl.aws.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xprojectjobtokenpermissions.gitlab.gitops.k8s.dish.io
+          unchanged
+        name: xprojectjobtokenpermissions.gitlab.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: Composition
+        message: composition.apiextensions.crossplane.io/xvelero.kcl.aws.gitops.k8s.dish.io
+          unchanged
+        name: xvelero.kcl.aws.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apiextensions.crossplane.io
+        hookPhase: Running
+        kind: CompositeResourceDefinition
+        message: compositeresourcedefinition.apiextensions.crossplane.io/xveleros.gitops.k8s.dish.io
+          unchanged
+        name: xveleros.gitops.k8s.dish.io
+        namespace: crossplane-system
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: 1.4.2
+      source:
+        chart: crossplane-compositions
+        helm:
+          valuesObject:
+            argocdProvider:
+              image:
+                tag: v0.9.1
+              secretPath: crossplane/mmc-caf-usw2pt/argocd-provider
+            awsProvider:
+              roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+            endpoints:
+              gitlab:
+                baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+              ldap:
+                baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+            extraObjects: []
+            functions:
+              functionAutoReady:
+                image:
+                  tag: v0.2.1
+            gitlabProvider:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+              debug: true
+              enabled: true
+            httpProvider:
+              enabled: true
+            image:
+              repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com
+            onboarding:
+              continuousDeployment:
+                gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+                gitopsParentGroupId: 356
+                groupWithProjectTemplatesId: 186
+                templateProjectId: 432
+              continuousIntegration:
+                groupWithProjectTemplatesId: 186
+                helmChartParentGroupId: 182
+                helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+                templateProjectId: 91
+            secretStore:
+              region: us-west-2
+              roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+        repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+        targetRevision: 1.4.2
+  reconciledAt: "2024-11-27T17:36:21Z"
+  resources:
+  - kind: ServiceAccount
+    name: external-secrets-sa
+    namespace: crossplane-system
+    status: Synced
+    syncWave: -99
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xargoclusters.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xclusters.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xcnfonboardings.onboarding.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xefss.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xgroups.ldap.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xhelmapplications.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xirsas.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xisvcontinuousdeployments.onboarding.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xisvcontinuousintegrations.onboarding.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xlambdas.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xldapgrouplinks.gitlab.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xmultuss.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xnfsservers.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xnodegroups.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xnodeterminationhandlers.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xprojectjobtokenpermissions.gitlab.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: CompositeResourceDefinition
+    name: xveleros.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xargocluster.kcl.aws.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xcluster.kcl.aws.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xcnfonboarding.kcl.onboarding.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xefs.kcl.aws.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xgroup.kcl.ldap.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xhelmapplication.kcl.aws.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xirsa.kcl.aws.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xisvcontinuousdeployment.kcl.onboarding.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xisvcontinuousintegration.kcl.onboarding.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xlambda.kcl.aws.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xldapgrouplink.kcl.gitlab.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xmultus.kcl.aws.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xnfsserver.kcl.aws.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xnodegroup.kcl.aws.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xnth.kcl.aws.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xprojectjobtokenpermission.kcl.gitlab.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: apiextensions.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: Composition
+    name: xvelero.kcl.aws.gitops.k8s.dish.io
+    status: Synced
+    version: v1
+  - group: argocd.crossplane.io
+    health:
+      message: Resource is in use.
+      status: Healthy
+    kind: ProviderConfig
+    name: argocd-provider-config
+    status: Synced
+    version: v1alpha1
+  - group: aws.upbound.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: ProviderConfig
+    name: crossplane-system-aws-provider-config
+    status: Synced
+    version: v1beta1
+  - group: aws.upbound.io
+    health:
+      message: Resource is in use.
+      status: Healthy
+    kind: ProviderConfig
+    name: rmc-clusters-infra-aws-provider-config
+    status: Synced
+    version: v1beta1
+  - group: external-secrets.io
+    health:
+      message: Secret was synced
+      status: Healthy
+    kind: ExternalSecret
+    name: argocd-provider-creds
+    namespace: crossplane-system
+    status: Synced
+    version: v1beta1
+  - group: external-secrets.io
+    health:
+      message: Secret was synced
+      status: Healthy
+    kind: ExternalSecret
+    name: gitlab-provider-creds
+    namespace: crossplane-system
+    status: Synced
+    version: v1beta1
+  - group: external-secrets.io
+    health:
+      message: Secret was synced
+      status: Healthy
+    kind: ExternalSecret
+    name: http-provider-config-gitlab
+    namespace: crossplane-system
+    status: Synced
+    version: v1beta1
+  - group: external-secrets.io
+    health:
+      message: Secret was synced
+      status: Healthy
+    kind: ExternalSecret
+    name: http-provider-config-ldap
+    namespace: crossplane-system
+    status: Synced
+    version: v1beta1
+  - group: external-secrets.io
+    health:
+      message: store validated
+      status: Healthy
+    kind: SecretStore
+    name: crossplane-store
+    namespace: crossplane-system
+    status: Synced
+    syncWave: -89
+    version: v1beta1
+  - group: gitlab.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: ProviderConfig
+    name: gitlab-provider-config
+    status: Synced
+    version: v1beta1
+  - group: http.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: ProviderConfig
+    name: http-provider-config-gitlab
+    status: Synced
+    version: v1alpha1
+  - group: http.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: ProviderConfig
+    name: http-provider-config-ldap
+    status: Synced
+    version: v1alpha1
+  - group: pkg.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: DeploymentRuntimeConfig
+    name: argocd-runtime-config
+    status: Synced
+    syncWave: -20
+    version: v1beta1
+  - group: pkg.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: DeploymentRuntimeConfig
+    name: aws-runtime-config
+    status: Synced
+    syncWave: -20
+    version: v1beta1
+  - group: pkg.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: DeploymentRuntimeConfig
+    name: gitlab-runtime-config
+    status: Synced
+    syncWave: -20
+    version: v1beta1
+  - group: pkg.crossplane.io
+    health:
+      message: "<string>:23: attempt to index a non-table object(nil) with key 'conditions'\nstack
+        traceback:\n\t<string>:23: in main chunk\n\t[G]: ?"
+      status: Unknown
+    kind: DeploymentRuntimeConfig
+    name: http-runtime-config
+    status: Synced
+    syncWave: -20
+    version: v1beta1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Function
+    name: function-auto-ready
+    status: Synced
+    syncWave: -15
+    version: v1beta1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Function
+    name: kcl-function
+    status: Synced
+    syncWave: -15
+    version: v1beta1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-argocd
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-aws-autoscaling
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-aws-cloudwatchevents
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-aws-cloudwatchlogs
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-aws-ec2
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-aws-efs
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-aws-eks
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-aws-iam
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-aws-kms
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-aws-lambda
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-aws-s3
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-aws-sqs
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-family-aws
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-gitlab
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-http
+    status: Synced
+    syncWave: -17
+    version: v1
+  - group: pkg.crossplane.io
+    health:
+      message: Resource is up-to-date.
+      status: Healthy
+    kind: Provider
+    name: provider-kubernetes
+    status: Synced
+    syncWave: -17
+    version: v1
+  sourceType: Helm
+  summary: {}
+  sync:
+    comparedTo:
+      destination:
+        namespace: crossplane-system
+        server: https://1B0575F3696769C5B0120DFD65740348.gr7.us-west-2.eks.amazonaws.com
+      source:
+        chart: crossplane-compositions
+        helm:
+          valuesObject:
+            argocdProvider:
+              image:
+                tag: v0.9.1
+              secretPath: crossplane/mmc-caf-usw2pt/argocd-provider
+            awsProvider:
+              roleArn: arn:aws:iam::936341046996:role/StackSet-mmc-caf-usw2pt
+            endpoints:
+              gitlab:
+                baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net
+              ldap:
+                baseUrl: https://wl-access-tools.int.aws.dish-wireless.net
+            extraObjects: []
+            functions:
+              functionAutoReady:
+                image:
+                  tag: v0.2.1
+            gitlabProvider:
+              baseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/
+              debug: true
+              enabled: true
+            httpProvider:
+              enabled: true
+            image:
+              repository: 155880749572.dkr.ecr.us-west-2.amazonaws.com
+            onboarding:
+              continuousDeployment:
+                gitopsBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/amdocs/v3-configuration/isv-service-configuration/dev
+                gitopsParentGroupId: 356
+                groupWithProjectTemplatesId: 186
+                templateProjectId: 432
+              continuousIntegration:
+                groupWithProjectTemplatesId: 186
+                helmChartParentGroupId: 182
+                helmRegistryBaseUrl: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects
+                templateProjectId: 91
+            secretStore:
+              region: us-west-2
+              roleArn: arn:aws:iam::936341046996:role/es-crossplane-mmc-caf-usw2pt
+        repoURL: https://portal.cicd.gitlab.int.aws.dish-wireless.net/api/v4/projects/462/packages/helm/stable/
+        targetRevision: 1.4.2
+    revision: 1.4.2
+    status: Synced

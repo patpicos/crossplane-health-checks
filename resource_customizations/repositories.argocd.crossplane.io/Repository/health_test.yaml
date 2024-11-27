@@ -51,3 +51,21 @@ tests:
         cannot resolve references: mg.Spec.ForProvider.FileSystemID: referenced
         field was empty (referenced resource may not yet be ready)
   inputPath: testdata/backup-policy.yaml
+
+
+- healthStatus:
+    status: Healthy
+    message: "Resource is up-to-date."
+  inputPath: testdata/issue-bucketversioning.yaml
+
+- healthStatus:
+    status: Healthy
+    message: "Resource is up-to-date."
+  inputPath: testdata/apiextension.yaml
+- healthStatus:
+    status: Progressing
+    message: >-
+        Unready resources: cert-mgr-test-8g259-cluster,
+        cert-mgr-test-8g259-cluster-auth, cert-mgr-test-8g259-coredns-addon, and
+        2 more
+  inputPath: testdata/cluster.yaml

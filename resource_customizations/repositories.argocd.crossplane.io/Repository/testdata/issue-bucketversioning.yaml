@@ -1,0 +1,72 @@
+apiVersion: repositories.argocd.crossplane.io/v1alpha1
+kind: Repository
+# apiVersion: s3.aws.upbound.io/v1beta2
+# kind: BucketVersioning
+metadata:
+  annotations:
+    crossplane.io/composition-resource-name: mmc-caf-usw2pt-5j9z2-velero-velero-us-west-2-93634-ver
+    crossplane.io/external-create-pending: '2024-09-26T15:31:40Z'
+    crossplane.io/external-create-succeeded: '2024-09-26T15:31:40Z'
+    crossplane.io/external-name: mmc-caf-usw2pt-5j9z2-velero-velero-us-west-2-93634
+  creationTimestamp: '2024-09-26T15:31:37Z'
+  finalizers:
+    - finalizer.managedresource.crossplane.io
+  generateName: mmc-caf-usw2pt-5j9z2-
+  generation: 2
+  labels:
+    crossplane.io/claim-name: mmc-caf-usw2pt
+    crossplane.io/claim-namespace: rmc-clusters-infra
+    crossplane.io/composite: mmc-caf-usw2pt-5j9z2
+  name: mmc-caf-usw2pt-5j9z2-velero-velero-us-west-2-93634-ver
+  ownerReferences:
+    - apiVersion: gitops.k8s.dish.io/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: XVelero
+      name: mmc-caf-usw2pt-5j9z2-velero
+      uid: 842f753f-0804-48a4-9194-eae08ea27555
+  resourceVersion: '30295543'
+  uid: 1818ea67-e3a8-4d04-8122-d75452cc3dd6
+spec:
+  deletionPolicy: Orphan
+  forProvider:
+    bucket: mmc-caf-usw2pt-5j9z2-velero-velero-us-west-2-93634
+    bucketRef:
+      name: mmc-caf-usw2pt-5j9z2-velero-velero-us-west-2-93634
+    bucketSelector:
+      matchControllerRef: true
+      matchLabels:
+        role: primary-storage
+    region: us-west-2
+    versioningConfiguration:
+      status: Enabled
+  initProvider: {}
+  managementPolicies:
+    - Create
+    - Delete
+    - LateInitialize
+    - Update
+    - Observe
+  providerConfigRef:
+    name: rmc-clusters-infra-aws-provider-config
+status:
+  atProvider:
+    bucket: mmc-caf-usw2pt-5j9z2-velero-velero-us-west-2-93634
+    expectedBucketOwner: ''
+    id: mmc-caf-usw2pt-5j9z2-velero-velero-us-west-2-93634
+    versioningConfiguration:
+      mfaDelete: ''
+      status: Enabled
+  conditions:
+    - lastTransitionTime: '2024-11-10T01:18:32Z'
+      reason: ReconcileSuccess
+      status: 'True'
+      type: Synced
+    - lastTransitionTime: '2024-09-26T15:31:47Z'
+      reason: Available
+      status: 'True'
+      type: Ready
+    - lastTransitionTime: '2024-09-26T15:31:42Z'
+      reason: Success
+      status: 'True'
+      type: LastAsyncOperation
